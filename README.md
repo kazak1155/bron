@@ -13,7 +13,7 @@
 база данных mysql
 \
 \
-Как все запустить:\
-1. скачать с Git\
-2. запустить в консоле "docker-compose up -d"\
-3. зайти в контейнер "project_app" через bash  и выполнить команду "php artisan migrate"\
+Как все запустить:
+1. скачать с Git
+2. запустить в консоле "docker-compose up -d"
+3. зайти в контейнер "project_app" через bash  и выполнить команду "php artisan migrate"
