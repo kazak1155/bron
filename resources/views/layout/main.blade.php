@@ -1,6 +1,6 @@
 @extends('layout.header')
 
-<div>
+<div id="app">
     @yield('content')
 </div>
 
