@@ -1,5 +1,5 @@
+@extends('layout.header')
 
-@include('layout.header');
-@section('content')
-@endsection;
-@include('layout.footer');
+@yield('content')
+
+@extends('layout.footer')
