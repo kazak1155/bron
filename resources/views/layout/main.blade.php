@@ -1,5 +1,7 @@
 @extends('layout.header')
 
-@yield('content')
+<div>
+    @yield('content')
+</div>
 
 @extends('layout.footer')
