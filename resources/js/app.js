@@ -1,10 +1,3 @@
-// import './bootstrap';
-//
-//
-// import '../sass/app.scss';
-
-import * as bootstrap from 'bootstrap';
-
 
 // import "./bootstrap";
 // import { createApp } from "vue";
@@ -16,11 +9,11 @@ import * as bootstrap from 'bootstrap';
 
 import './bootstrap';
 import App from '../components/App.vue'
-
+import router from './router/router.js'
 
 
 import { createApp } from "vue";
 
 
 
-const app = createApp(App).mount('#app')
+createApp(App).use(router).mount('#app')
