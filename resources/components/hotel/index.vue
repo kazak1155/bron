@@ -9,7 +9,7 @@
                 <th>Name hotel</th>
                 <th>Description hotel</th>
                 <th>Adress</th>
-<!--                <th>Update</th>-->
+                <th>Update</th>
             </tr>
             </thead>
             <tbody>
@@ -28,9 +28,9 @@
                         {{ hotel.address }}
                     </td>
                     <td>
-<!--                        <router-link class="btn btn-success" :to="{ name: 'hotel.edit', params: {id: hotel.id}}"> Edit-->
-<!--                            Hotel-->
-<!--                        </router-link>-->
+                        <router-link class="btn btn-success" :to="{ name: 'edit.hotel', params: {id: hotel.id}}"> Edit
+                            Hotel
+                        </router-link>
                     </td>
                 </tr>
             </template>

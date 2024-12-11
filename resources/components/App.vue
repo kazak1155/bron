@@ -12,7 +12,7 @@
                         <router-link class="nav-link active" :to="{ name: 'show.hotel' }">show Hotel</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link active" :to="{ name: 'edit.hotel' }">edit Hotel</router-link>
+                        <router-link class="nav-link active" :to="{ name: 'e.hotel' }">edit Hotel</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link active" :to="{ name: 'store.hotel' }">store hotel</router-link>

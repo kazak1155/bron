@@ -28,6 +28,12 @@ const routes = [
 
     {
         path: "/editHotel",
+        name: "e.hotel",
+        component: () => import('../../components/hotel/edit.vue'),
+    },
+
+    {
+        path: "/hotel/:id/edit",
         name: "edit.hotel",
         component: () => import('../../components/hotel/edit.vue'),
     },
