@@ -1,11 +1,6 @@
 <template>
 <div>
-    <div>
-        this is vue component
-<!--        <div>-->
-<!--            <button type="button" class="btn btn-danger">Danger</button>-->
-<!--        </div>-->
-    </div>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
