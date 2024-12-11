@@ -15,6 +15,30 @@ const routes = [
     },
 
     {
+        path: "/showHotel",
+        name: "show.hotel",
+        component: () => import('../../components/hotel/show.vue'),
+    },
+
+    {
+        path: "/storeHotel",
+        name: "store.hotel",
+        component: () => import('../../components/hotel/store.vue'),
+    },
+
+    {
+        path: "/editHotel",
+        name: "edit.hotel",
+        component: () => import('../../components/hotel/edit.vue'),
+    },
+
+    {
+        path: "/indexHotel",
+        name: "index.hotel",
+        component: () => import('../../components/hotel/index.vue'),
+    },
+
+    {
         // path: "/",
         // name: "main",
         // component: () => import('../../componets/page/main.vue'),
