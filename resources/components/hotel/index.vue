@@ -8,7 +8,7 @@
             <tr>
                 <th>Name hotel</th>
                 <th>Description hotel</th>
-                <th>Adress</th>
+                <th>Address</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
@@ -33,7 +33,9 @@
                         </router-link>
                     </td>
                     <td>
-                        <i class="bi bi-trash"></i>
+                        <a href="#" @click.prevent="$store.dispatch('hotel/deleteHotel', hotel.id)">
+                            <i class="bi bi-trash"></i>
+                        </a>
                     </td>
                 </tr>
             </template>
@@ -44,7 +46,7 @@
 
 <script>
 
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import store from "../../js/store/index.js";
 
 export default {

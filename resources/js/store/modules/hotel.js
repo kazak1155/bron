@@ -82,6 +82,18 @@ export default  {
                     console.log(error.message)
                 });
         },
+
+        deleteHotel({dispatch}, id) {
+            axios.delete(`/api/hotel/${id}`,
+            )
+                .then(response => {
+                    dispatch('getAllHotels')
+                })
+                .catch(error => {
+                    console.log(error.response)
+                });
+        },
+
         addHotel({commit, state}, data) {
             console.log(state.image)
             axios.post("/api/hotelStore",
