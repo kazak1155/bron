@@ -12,3 +12,4 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('hotels', [ShowController::class, 'index'])->name('index.hotel');
+Route::get('hotel/{hotel}', [ShowController::class, 'show'])->name('show.hotel');

@@ -73,7 +73,6 @@ export default  {
         },
 
         getOneHotel({ commit }, id) {
-
             axios.get(`/api/hotel/${id}`)
                 .then(response => {
                     commit('setHotel', response.data.data)

@@ -12,4 +12,9 @@ class ShowController extends Controller
 
         return HotelResource::collection(Hotel::all());
     }
+
+    public function show(Hotel $hotel) {
+
+        return new HotelResource($hotel);
+    }
 }

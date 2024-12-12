@@ -10,16 +10,16 @@
                 <th>Description hotel</th>
                 <th>Adress</th>
                 <th>Update</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             <template v-for="hotel in hotels">
                 <tr>
                     <td>
-<!--                        <router-link v-if="hotel && hotel.id" :to="{ name: 'hotel.show', params: { id: hotel.id }}">-->
-<!--                            {{ hotel.name }}-->
-<!--                        </router-link>-->
-                        {{ hotel.name }}
+                        <router-link v-if="hotel && hotel.id" :to="{ name: 'show.hotel', params: { id: hotel.id }}">
+                            {{ hotel.name }}
+                        </router-link>
                     </td>
                     <td>
                         {{ hotel.description }}
@@ -31,6 +31,9 @@
                         <router-link class="btn btn-success" :to="{ name: 'edit.hotel', params: {id: hotel.id}}"> Edit
                             Hotel
                         </router-link>
+                    </td>
+                    <td>
+                        <i class="bi bi-trash"></i>
                     </td>
                 </tr>
             </template>
