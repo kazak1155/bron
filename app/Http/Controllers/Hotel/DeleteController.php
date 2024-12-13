@@ -10,7 +10,7 @@ class DeleteController extends Controller
 {
     public function delete(Hotel $hotel) {
 
-//        $hotel->delete();
+        $hotel->delete();
 
         return $hotel->name;
     }

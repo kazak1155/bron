@@ -111,14 +111,13 @@ export default  {
             axios.delete(`/api/hotel/${id}`,
             )
                 .then(response => {
-                    dispatch('getAllHotels')
-                    commit('setMessage', ('hotel delete with name: ') + response.data)
-                    commit('setIsVisible', true)
-                    commit('serClassMessage', 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3')
+                    dispatch('getAllHotels') //получение все отелей
+                    commit('setMessage', ('hotel delete with name: ') + response.data) //установка текта сообщения
+                    commit('setIsVisible', true) // меняем видимость сообщения
+                    commit('serClassMessage', 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
                     setTimeout(() => {
                         commit('setIsVisible', false)// Скрываем элемент через 3 секунды
                     }, 3000);
-                    console.log(response.data);
                 })
                 .catch(error => {
                     console.log(error.response)
