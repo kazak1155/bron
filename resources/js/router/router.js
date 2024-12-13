@@ -3,18 +3,6 @@ import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
     {
-        path: "/test1",
-        name: "test1",
-        component: () => import('../../components/test/test1.vue'),
-    },
-
-    {
-        path: "/test2",
-        name: "test2",
-        component: () => import('../../components/test/test2.vue'),
-    },
-
-    {
         path: "/hotel/:id",
         name: "show.hotel",
         component: () => import('../../components/hotel/show.vue'),
@@ -45,9 +33,9 @@ const routes = [
     },
 
     {
-        // path: "/",
-        // name: "main",
-        // component: () => import('../../componets/page/main.vue'),
+        path: "/",
+        name: "main",
+        component: () => import('../../components/pages/main.vue'),
     },
 
     {
@@ -62,11 +50,11 @@ const routes = [
         // component: () => import('../../componets/page/about.vue'),
     },
 
-    // {
-    //     path: "/:pathMatch(.*)*",
-    //     name: "pageNotFound",
-    //     component: () => import('../../componets/page/notFoundPage.vue'),
-    // },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "pageNotFound",
+        component: () => import('../../components/pages/notFoundPage.vue'),
+    },
 
     {
         // path: "/hotel",

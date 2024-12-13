@@ -1,4 +1,7 @@
 <template>
+    <div v-show="isVisible == true" class="alert alert-danger">
+        Значение: {{ message }}
+    </div>
     <div>
         <div class="d-flex justify-content-center">
             <h2>All hotels</h2>
@@ -33,9 +36,7 @@
                         </router-link>
                     </td>
                     <td>
-                        <a href="#" @click.prevent="$store.dispatch('hotel/deleteHotel', hotel.id)">
-                            <i class="bi bi-trash"></i>
-                        </a>
+                            <i @click.prevent="$store.dispatch('hotel/deleteHotel', hotel.id)" class="bi bi-trash fs-2"></i>
                     </td>
                 </tr>
             </template>
@@ -47,10 +48,11 @@
 <script>
 
 import {mapGetters, mapActions} from 'vuex'
-import store from "../../js/store/index.js";
+import {isVisible} from "bootstrap/js/src/util/index.js";
 
 export default {
     name: "show",
+    methods: {isVisible},
 
     mounted() {
         this.$store.dispatch('hotel/getAllHotels')
@@ -58,7 +60,9 @@ export default {
 
     computed: {
         ...mapGetters({
-            hotels: 'hotel/hotels'
+            hotels: 'hotel/hotels',
+            message: 'hotel/message',
+            isVisible: 'hotel/isVisible',
         })
     },
 }

@@ -16,6 +16,8 @@ export default  {
             img_url: null,
             dataForStoreHotel: null,
         },
+        message: null,
+        isVisible: false,
     },
 
     getters: {
@@ -33,6 +35,12 @@ export default  {
 
         imageUrl: state => {
             return state.imageUrl
+        },
+        message: state => {
+            return state.message
+        },
+        isVisible: state => {
+            return state.isVisible
         }
     },
 
@@ -57,6 +65,14 @@ export default  {
 
         setImageUrl(state, imageUrl) {
             state.imageUrl = imageUrl
+        },
+
+        setMessage(state, message) {
+            state.message = message
+        },
+
+        setIsVisible(state, isVisible) {
+            state.isVisible = isVisible
         },
     },
 
@@ -83,11 +99,17 @@ export default  {
                 });
         },
 
-        deleteHotel({dispatch}, id) {
+        deleteHotel({dispatch, commit}, id) {
             axios.delete(`/api/hotel/${id}`,
             )
                 .then(response => {
                     dispatch('getAllHotels')
+                    commit('setMessage', ('hotel delete with name: ') + response.data)
+                    commit('setIsVisible', true)
+                    setTimeout(() => {
+                        commit('setIsVisible', false)// Скрываем элемент через 3 секунды
+                    }, 3000);
+                    console.log(response.data);
                 })
                 .catch(error => {
                     console.log(error.response)

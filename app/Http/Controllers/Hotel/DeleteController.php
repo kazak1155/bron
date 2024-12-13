@@ -8,8 +8,9 @@ use App\Models\Hotel;
 
 class DeleteController extends Controller
 {
-    public function delete() {
+    public function delete(Hotel $hotel) {
+        $hotel->delete();
 
-        return 'hotel delete';
+        return $hotel->name;
     }
 }

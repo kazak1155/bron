@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="p-3">
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
@@ -8,9 +8,9 @@
                     <li class="nav-item">
                         <router-link class="nav-link active" :to="{ name: 'index.hotel' }">index Hotel</router-link>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                        <router-link class="nav-link active" :to="{ name: 'show.hotel' }">show Hotel</router-link>-->
-<!--                    </li>-->
+                    <li class="nav-item">
+                        <router-link class="nav-link active" :to="{ name: 'main' }">main page</router-link>
+                    </li>
                     <li class="nav-item">
                         <router-link class="nav-link active" :to="{ name: 'e.hotel' }">edit Hotel</router-link>
                     </li>
