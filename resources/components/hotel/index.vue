@@ -1,6 +1,6 @@
 <template>
-    <div v-show="isVisible == true" class="alert alert-danger">
-        Значение: {{ message }}
+    <div v-show="isVisible == true" :class="classMessage" >
+         {{ message }}
     </div>
     <div>
         <div class="d-flex justify-content-center">
@@ -63,6 +63,7 @@ export default {
             hotels: 'hotel/hotels',
             message: 'hotel/message',
             isVisible: 'hotel/isVisible',
+            classMessage: 'hotel/classMessage',
         })
     },
 }

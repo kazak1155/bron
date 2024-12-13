@@ -18,6 +18,7 @@ export default  {
         },
         message: null,
         isVisible: false,
+        classMessage: null,
     },
 
     getters: {
@@ -41,6 +42,9 @@ export default  {
         },
         isVisible: state => {
             return state.isVisible
+        },
+        classMessage: state => {
+            return state.classMessage
         }
     },
 
@@ -74,6 +78,10 @@ export default  {
         setIsVisible(state, isVisible) {
             state.isVisible = isVisible
         },
+
+        serClassMessage(state, classMessage) {
+            state.classMessage = classMessage
+        }
     },
 
     actions: {
@@ -106,6 +114,7 @@ export default  {
                     dispatch('getAllHotels')
                     commit('setMessage', ('hotel delete with name: ') + response.data)
                     commit('setIsVisible', true)
+                    commit('serClassMessage', 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3')
                     setTimeout(() => {
                         commit('setIsVisible', false)// Скрываем элемент через 3 секунды
                     }, 3000);
