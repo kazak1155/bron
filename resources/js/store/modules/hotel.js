@@ -16,9 +16,15 @@ export default  {
             img_url: null,
             dataForStoreHotel: null,
         },
+        errors: {
+            name: null,
+            description: null,
+            address: null,
+        },
         message: null,
         isVisible: false,
         classMessage: null,
+
     },
 
     getters: {
@@ -45,7 +51,10 @@ export default  {
         },
         classMessage: state => {
             return state.classMessage
-        }
+        },
+        errors: state => {
+            return state.errors
+        },
     },
 
     mutations: {
@@ -81,7 +90,11 @@ export default  {
 
         serClassMessage(state, classMessage) {
             state.classMessage = classMessage
-        }
+        },
+
+        setErrors(state, errors){
+            state.errors = errors
+        },
     },
 
     actions: {
@@ -144,25 +157,59 @@ export default  {
                 });
         },
 
-        async storeHotel({ commit, state }, data) {
-            console.log('uploadImage');
+        // async storeHotel({ commit, state }, data) {
+        //     console.log('uploadImage');
+        //     const formData = new FormData();
+        //     formData.append('file', state.image);
+        //     formData.append('name', data.name);
+        //     formData.append('description', data.description);
+        //     formData.append('address', data.address);
+        //     axios.post('/api/hotelStore', formData)
+        //         .then(response => {
+        //             console.log(response);
+        //         })
+        //         .catch(error => {
+        //             console.log(error.message)
+        //         });
+        //
+        //     console.log(111);
+        //     commit('setImage', null)
+        //     commit('setImageUrl', null)
+        //     commit('setResetHotel')
+        // },
+
+        async storeHotel({ commit, dispatch  }, { file, data }) {
             const formData = new FormData();
-            formData.append('file', state.image);
+            formData.append('file', file);
             formData.append('name', data.name);
             formData.append('description', data.description);
             formData.append('address', data.address);
-            axios.post('/api/hotelStore', formData)
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(error => {
-                    console.log(error.message)
-                });
-
-            console.log(111);
+            // dispatch('setMessage', 'new hotel create with name: '+ data.name);
             commit('setImage', null)
             commit('setImageUrl', null)
+            commit('setErrors', null)
             commit('setResetHotel')
+            router.push({ name: 'index.hotel'})
+
+            try {
+                const response = await axios.post('/api/hotel_store', formData,)
+                console.log(response);
+                commit('setMessage', ('create hotel with name: ') + response.data) //установка текста сообщения
+                commit('setIsVisible', true) // меняем видимость сообщения
+                commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
+                setTimeout(() => {
+                    commit('setIsVisible', false)// Скрываем элемент через 3 секунды
+                }, 3000);
+            } catch (error) {
+                {
+                    if (error.response && error.response.status === 422) {
+                        commit('setErrors', error.response.data.errors)
+                        console.log(error.response.data.errors)
+                    } else {
+                        console.error(error);
+                    }
+                }
+            }
         },
 
         onImageSelected({commit}, event) {

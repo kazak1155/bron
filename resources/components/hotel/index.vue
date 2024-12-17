@@ -1,5 +1,5 @@
 <template>
-    <div v-show="isVisible == true" :class="classMessage" >
+    <div v-show="visibleMessage == true" :class="classMessage" >
          {{ message }}
     </div>
     <div>
@@ -31,8 +31,8 @@
                         {{ hotel.address }}
                     </td>
                     <td>
-                        <router-link class="btn btn-success" :to="{ name: 'edit.hotel', params: {id: hotel.id}}"> Edit
-                            Hotel
+                        <router-link class="btn btn-success" :to="{ name: 'edit.hotel', params: {id: hotel.id}}">
+                            Edit Hotel
                         </router-link>
                     </td>
                     <td>
@@ -42,6 +42,12 @@
             </template>
             </tbody>
         </table>
+    </div>
+    <div>
+        <br>
+        <router-link class="btn btn-success" :to="{ name: 'store.hotel'}">
+            Create hotel
+        </router-link>
     </div>
 </template>
 
@@ -62,7 +68,7 @@ export default {
         ...mapGetters({
             hotels: 'hotel/hotels',
             message: 'hotel/message',
-            isVisible: 'hotel/isVisible',
+            visibleMessage: 'hotel/isVisible',
             classMessage: 'hotel/classMessage',
         })
     },
