@@ -11,9 +11,7 @@
                 <br>
                 <input class="mb-3" v-model="hotel.name" type="text" id="nameHotel" placeholder="Hotel name"/>
                 <div v-if="errors?.name?.length">
-                    <template v-for="error in errors.name">
-                        <p class="w-25 alert alert-danger">{{ error }}</p>
-                    </template>
+                    <p class="w-25 alert alert-danger">{{ errors.name }}</p>
                 </div>
             </div>
             <div class="mb-3 border-top">
@@ -32,9 +30,7 @@
                 <br>
                 <input class="mb-3" v-model="hotel.address" type="text" id="hotelAddress" placeholder="Hotel address">
                 <div v-if="errors?.address?.length">
-                    <template v-for="error in errors.address">
-                        <p class="w-25 alert alert-danger">{{ error }}</p>
-                    </template>
+                    <p class="w-25 alert alert-danger">{{ errors.address }}</p>
                 </div>
             </div>
             <div class="mb-3 border-top">
@@ -61,7 +57,13 @@
 <script>
 import {mapGetters} from 'vuex';
 
+
 export default {
+
+    // mounted() {
+    //     this.$store.commit('hotel/setErrors', null)
+    // },
+
     computed: {
         ...mapGetters({
             hotel: 'hotel/hotel',
