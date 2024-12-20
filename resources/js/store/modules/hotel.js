@@ -177,6 +177,9 @@ export default  {
                      commit('setMessage', ('cоздан новый отель с именем: ') + data.name)
                      commit('setIsVisible', true)
                      commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3')
+                     setTimeout(() => {
+                         commit('setIsVisible', false)// Скрываем элемент через 3 секунды
+                     }, 3000);
                      console.log(response);
                  })
                  .catch(error => {
