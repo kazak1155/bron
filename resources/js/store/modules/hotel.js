@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vuex from 'vuex';
 import router from "../../router/router.js";
 
 export default  {
@@ -145,80 +146,36 @@ export default  {
                 });
         },
 
-         storeHotel({ commit, dispatch, state }, { file, data }) {
-             const formData = new FormData();
+         async storeHotel({commit, dispatch, state}, {file, data}) {
+             try {
+                 const formData = new FormData();
 
-             if (!data.name) {
-                 commit('setErrorName', 'поле не должно быть пустым')
-                 return;
-             } else {
-                 commit('setErrorName', null)
+                 if (!data.name) {
+                     commit('setErrorName', 'поле не должно быть пустым')
+                     return;
+                 } else {
+                     commit('setErrorName', null)
+                 }
+                 if (!data.address) {
+                     commit('setErrorAddress', 'поле не должно быть пустым')
+                     return;
+                 } else {
+                     commit('setErrorAddress', null)
+                 }
+                 if (file) {
+                     formData.append('file', file);
+                 }
+
+                 formData.append('name', data.name);
+                 formData.append('description', data.description);
+                 formData.append('address', data.address);
+                 const response = await axios.post('/api/hotel_store',  formData);
+                 // Переадресация после успешного запроса
+                 await router.push({name: 'index.hotel'}) // Используем метод push и ждем его завершения
+             } catch (error) {
+                 console.error('Ошибка при выполнении запроса:', error);
              }
-             if (!data.address) {
-                 commit('setErrorAddress', 'поле не должно быть пустым')
-                 return;
-             } else {
-                 commit('setErrorAddress', null)
-             }
-             if (file) {
-                 formData.append('file', file);
-             }
-
-             formData.append('name', data.name);
-             formData.append('description', data.description);
-             formData.append('address', data.address);
-
-             return axios.post('/api/hotel_store',  formData, {
-                 headers: {
-                     'Content-Type': 'multipart/form-data',
-                 },
-             })
-                 .then(response => {
-                     commit('setMessage', ('cоздан новый отель с именем: ') + data.name)
-                     commit('setIsVisible', true)
-                     commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3')
-                     setTimeout(() => {
-                         commit('setIsVisible', false)// Скрываем элемент через 3 секунды
-                     }, 3000);
-                     console.log(response);
-                 })
-                 .catch(error => {
-                     if (error.response && error.response.status === 422) {
-                         commit('setErrors', error.response.data.errors)
-                         console.log(error.response.data.errors)
-                     } else {
-                         console.error(error);
-                     }
-                 });
-
-             // commit('setErrors', null)
-            // try {
-            //     const response =  axios.post('/api/hotel_store', data.name)
-            //     console.log('not error');
-            //     // commit('setMessage', ('create hotel with name: ') + response.data) //установка текста сообщения
-            //     commit('setIsVisible', true) // меняем видимость сообщения
-            //     commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
-            //     setTimeout(() => {
-            //         commit('setIsVisible', false)// Скрываем элемент через 3 секунды
-            //     }, 3000);
-            //     commit('setImage', null)
-            //     // commit('setImageUrl', null)
-            //     commit('setErrors', null)
-            //     commit('setResetHotel')
-            //     // dispatch('setMessage', 'new hotel create with name: '+ data.name);
-            //     // router.push({ name: 'index.hotel'})
-            // } catch (error) {
-            //     console.log('error');
-            //     {
-            //         if (error.response && error.response.status === 422) {
-            //             commit('setErrors', error.response.data.errors)
-            //             console.log(error.response.data.errors)
-            //         } else {
-            //             console.error(error);
-            //         }
-            //     }
-            // }
-        },
+         },
 
         onImageSelected({commit}, event) {
             // console.log(event.target.files[0]);
