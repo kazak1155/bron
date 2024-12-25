@@ -19,7 +19,7 @@
   \
   Как все запустить:
 1. скачать с Git
-2. запустить в консоле "docker-compose up -d"
-3. composer intall
+2. запустить в консолей "docker-compose up -d"
+3. composer install
 4. npm install
 5. зайти в контейнер "project_app" через bash  и выполнить команду "php artisan migrate"
