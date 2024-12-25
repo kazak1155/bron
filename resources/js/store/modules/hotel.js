@@ -170,7 +170,6 @@ export default  {
                  formData.append('description', data.description);
                  formData.append('address', data.address);
                  const response = await axios.post('/api/hotel_store',  formData);
-                 // Переадресация после успешного запроса
                  await router.push({name: 'index.hotel'}) // Используем метод push и ждем его завершения
              } catch (error) {
                  console.error('Ошибка при выполнении запроса:', error);
