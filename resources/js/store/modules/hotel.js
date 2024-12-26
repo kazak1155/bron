@@ -69,8 +69,9 @@ export default  {
 
         setResetHotel(state) {
             state.hotel.name = null,
-                state.hotel.description = null,
-                state.hotel.address = null
+            state.hotel.description = null,
+            state.hotel.address = null,
+            state.imageUrl = null
         },
 
         setImage(state, image) {
@@ -171,6 +172,7 @@ export default  {
                  formData.append('address', data.address);
                  const response = await axios.post('/api/hotel_store',  formData);
                  await router.push({name: 'index.hotel'}) // Используем метод push и ждем его завершения
+                 commit('setResetHotel')
              } catch (error) {
                  console.error('Ошибка при выполнении запроса:', error);
              }

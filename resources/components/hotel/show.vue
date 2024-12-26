@@ -2,9 +2,9 @@
 <template>
 
     <div class="card m-lg-3 p-3" style="width: 30%">
-        <img :src="hotel.img_url" alt="hotel img" />
+        <img :src='hotel.img_url' alt="изображение отеля" />
         <div class="card-body">
-            <h5 class="card-title fw-bold">{{ hotel.name }}</h5>
+            <h5 class="card-title fw-bold"><span class="highlight">name: </span> {{ hotel.name }}</h5>
             <p class="card-text">description: <b>{{ hotel.description }}</b></p>
             <p class="card-text">address: <b>{{ hotel.address }}</b></p>
             <template v-for="room in hotel.room_id">
@@ -19,7 +19,6 @@
 
 <script>
 import {mapGetters} from "vuex";
-import hotel from "../../js/store/modules/hotel.js";
 
 export default {
     name: "showOne",
@@ -37,5 +36,10 @@ export default {
 </script>
 
 <style scoped>
+.highlight {
+    color: black; /* Цвет текста для выделенного слова */
+    font-weight: normal; /* Убираем жирный шрифт */
+    font-size: 1.00rem;
+}
 
 </style>

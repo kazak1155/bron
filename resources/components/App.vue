@@ -12,9 +12,6 @@
                         <router-link class="nav-link active" :to="{ name: 'main' }">main page</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link active" :to="{ name: 'e.hotel' }">edit Hotel</router-link>
-                    </li>
-                    <li class="nav-item">
                         <router-link class="nav-link active" :to="{ name: 'store.hotel' }">store hotel</router-link>
                     </li>
                 </ul>

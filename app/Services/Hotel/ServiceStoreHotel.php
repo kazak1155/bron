@@ -17,8 +17,9 @@ class ServiceStoreHotel
             $imageName = 'hotel_' . $lastCreteHotel->id . '_image.' . $originalExtension;
 
             $path = $data['file']->storeAs($path, $imageName, 'public');
+//            $path = $data['file']->store('images', 'public');
 
-            $lastCreteHotel->img_url = Storage::url($path);
+            $lastCreteHotel->img_url = $path;
             $lastCreteHotel->save();
             return 'file exists';
         } else {

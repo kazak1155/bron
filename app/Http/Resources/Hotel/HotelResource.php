@@ -4,6 +4,7 @@ namespace App\Http\Resources\Hotel;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class HotelResource extends JsonResource
 {
@@ -19,7 +20,8 @@ class HotelResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'address' => $this->address,
-            'img_url' => $this->img_url,
+//            'img_url' => $this->img_url,
+            'img_url' => Storage::url($this->img_url),
 //            'room_id' => Room::where('hotel_id', $this->id)->get()
         ];
     }

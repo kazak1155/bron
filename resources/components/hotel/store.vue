@@ -60,10 +60,6 @@ import {mapGetters} from 'vuex';
 
 export default {
 
-    // mounted() {
-    //     this.$store.commit('hotel/setErrors', null)
-    // },
-
     computed: {
         ...mapGetters({
             hotel: 'hotel/hotel',
@@ -77,9 +73,6 @@ export default {
     },
 
     methods: {
-        showUploadImage(event) {
-            this.$store.dispatch('hotel/onImageSelected', event)
-        },
 
         onFileChange(event) {
             this.$store.commit('hotel/setImage', event.target.files[0])
