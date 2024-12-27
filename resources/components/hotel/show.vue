@@ -1,6 +1,10 @@
 
 <template>
-
+    <div class="container mt-5">
+        <h1>
+            Index hotel
+        </h1>
+    </div>
     <div class="card m-lg-3 p-3" style="width: 30%">
         <img :src='hotel.img_url' alt="изображение отеля" />
         <div class="card-body">
@@ -13,6 +17,11 @@
                 </router-link>
             </template>
         </div>
+    </div>
+    <div>
+        <router-link class="btn btn-success" :to="{ name: 'edit.hotel', params: {id: hotel.id}}">
+            Edit Hotel
+        </router-link>
     </div>
 
 </template>
@@ -36,10 +45,5 @@ export default {
 </script>
 
 <style scoped>
-.highlight {
-    color: black; /* Цвет текста для выделенного слова */
-    font-weight: normal; /* Убираем жирный шрифт */
-    font-size: 1.00rem;
-}
 
 </style>

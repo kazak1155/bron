@@ -10,6 +10,7 @@ export default  {
         image: null,
         imageUrl: null,
         hotel: {
+            id: null,
             name: null,
             description: null,
             address: null,
@@ -119,7 +120,7 @@ export default  {
                 });
         },
 
-        getOneHotel({ commit }, id) {
+        getOneHotel({ commit, state }, id) {
             axios.get(`/api/hotel/${id}`)
                 .then(response => {
                     commit('setHotel', response.data.data)
@@ -178,10 +179,20 @@ export default  {
              }
          },
 
-        onImageSelected({commit}, event) {
+        onImageSelected({commit, state}, event) {
             // console.log(event.target.files[0]);
             commit('setImage', event.target.files[0])
             commit('setImageUrl', URL.createObjectURL(event.target.files[0]))
+        },
+
+        async updateHotel({state}, {file, data}) {
+            const id = data.id
+            try {
+                const response = await axios.patch(`/api/hotel/${id}`,  111);
+                console.log(response.data);
+            } catch (error) {
+                console.error('Ошибка при выполнении запроса:', error);
+            }
         },
     }
 }

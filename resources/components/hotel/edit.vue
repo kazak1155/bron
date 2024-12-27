@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <div class="container mt-5">
@@ -6,24 +5,69 @@
                 EDit hotel
             </h1>
         </div>
-        <div class="card m-lg-3 p-3" style="width: 30%">
-            <img :src='hotel.img_url' alt="изображение отеля" />
-            <div class="card-body">
-                <h5 class="card-title fw-bold"><span class="highlight">name: </span> {{ hotel.name }}</h5>
-                <p class="card-text">description: <b>{{ hotel.description }}</b></p>
-                <p class="card-text">address: <b>{{ hotel.address }}</b></p>
-                <template v-for="room in hotel.room_id">
-                    <router-link class="btn btn-primary m-lg-2" :to="{ name: 'room.show', params: { id: room.id }}">
-                        {{ room.name }}
-                    </router-link>
+
+
+        <form
+            @submit.prevent="updateHotel({id: hotel.id, name: hotel.name, description: hotel.description, address: hotel.address})">
+            <div>
+                <input class="mb-3" v-model="hotel.id" id="hotelId" type="hidden"/>
+            </div>
+            <div class="mb-3 border-top">
+                <label class="form-label">enter hotel name to edit</label>
+                <br>
+                <input class="mb-3" v-model="hotel.name" type="text" id="nameHotel" placeholder="Hotel name"/>
+                <div v-if="errors?.name?.length">
+                    <p class="w-25 alert alert-danger">{{ errors.name }}</p>
+                </div>
+            </div>
+            <div class="mb-3 border-top">
+                <label class="form-label">enter description name to edit</label>
+                <br>
+                <input class="mb-3" v-model="hotel.description" type="text" name="description" id="hotelDescription"
+                       placeholder="Hotel description">
+                <div v-if="errors?.description?.length">
+                    <template v-for="error in errors.description">
+                        <p class="w-25 alert alert-danger">{{ error }}</p>
+                    </template>
+                </div>
+            </div>
+            <div class="mb-3 border-top">
+                <label class="form-label">enter address name to edit</label>
+                <br>
+                <input class="mb-3" v-model="hotel.address" type="text" id="hotelAddress" placeholder="Hotel address">
+                <div v-if="errors?.address?.length">
+                    <p class="w-25 alert alert-danger">{{ errors.address }}</p>
+                </div>
+            </div>
+            <div v-if="hotel.img_url">
+                <img :src='hotel.img_url' class="w-50" alt="изображение отеля"/>
+            </div>
+            <div class="mb-3 border-top">
+                <label class="form-formData.bel">upload image hotel to edit</label>
+                <br>
+                <input class="mb-3" type="file" @change="onFileChange"/>
+            </div>
+            <div v-if="errors?.file?.length">
+                <template v-for="error in errors.file">
+                    <p class="w-25 alert alert-danger">{{ error }}</p>
                 </template>
             </div>
-        </div>
+            <div v-if="imageUrl" class="mb-3">
+                <h3>Предпросмотр изображения:</h3>
+                <img :src="imageUrl" alt="Uploaded Image" width="200"/>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Update hotel</button>
+            </div>
+        </form>
+
+
     </div>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
+import {compileString} from "sass";
 
 export default {
     name: "showOne",
@@ -34,9 +78,34 @@ export default {
 
     computed: {
         ...mapGetters({
-            hotel: 'hotel/hotel'
+            hotel: 'hotel/hotel',
+            file: 'hotel/image',
+            imageUrl: 'hotel/imageUrl',
+            errors: 'hotel/errors',
+            message: 'hotel/message',
+            visibleMessage: 'hotel/isVisible',
+            classMessage: 'hotel/classMessage',
         }),
     },
+
+    methods: {
+
+        onFileChange(event) {
+            this.$store.commit('hotel/setImage', event.target.files[0])
+            this.$store.commit('hotel/setImageUrl', URL.createObjectURL(event.target.files[0]))
+        },
+
+        updateHotel(hotel) {
+            const file = this.file;
+            const data = {
+                name: hotel.name,
+                description: hotel.description,
+                address: hotel.address,
+                id: hotel.id
+            };
+            this.$store.dispatch('hotel/updateHotel', { file, data });
+        },
+    }
 }
 </script>
 
