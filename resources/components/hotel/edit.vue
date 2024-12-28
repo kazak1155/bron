@@ -53,7 +53,7 @@
                 </template>
             </div>
             <div v-if="imageUrl" class="mb-3">
-                <h3>Предпросмотр изображения:</h3>
+                <h3>Предпросмотр загруженного изображения:</h3>
                 <img :src="imageUrl" alt="Uploaded Image" width="200"/>
             </div>
             <div class="mb-3">

@@ -25,6 +25,6 @@ class ServiceHotel
 
     public function update()
     {
-        return 'this is service update';
+//        return 'this is service update';
     }
 }

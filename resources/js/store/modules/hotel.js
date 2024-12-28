@@ -124,7 +124,7 @@ export default  {
             axios.get(`/api/hotel/${id}`)
                 .then(response => {
                     commit('setHotel', response.data.data)
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                 })
                 .catch(error => {
                     console.log(error.message)
@@ -175,7 +175,12 @@ export default  {
                  await router.push({name: 'index.hotel'}) // Используем метод push и ждем его завершения
                  commit('setResetHotel')
              } catch (error) {
-                 console.error('Ошибка при выполнении запроса:', error);
+                 if (error.response && error.response.status === 422) {
+                     commit('setErrors', error.response.data.errors)
+                     console.log(error.response.data.errors)
+                 } else {
+                     console.error(error);
+                 }
              }
          },
 
@@ -185,13 +190,47 @@ export default  {
             commit('setImageUrl', URL.createObjectURL(event.target.files[0]))
         },
 
-        async updateHotel({state}, {file, data}) {
+        async updateHotel({commit, state}, {file, data}) {
             const id = data.id
+            // console.log(data);
+            const formData = new FormData();
             try {
-                const response = await axios.patch(`/api/hotel/${id}`,  111);
-                console.log(response.data);
+                if (!data.name) {
+                    commit('setErrorName', 'поле не должно быть пустым JS')
+                    return;
+                } else {
+                    commit('setErrorName', null)
+                }
+                if (!data.address) {
+                    commit('setErrorAddress', 'поле не должно быть пустым JS')
+                    return;
+                } else {
+                    commit('setErrorAddress', null)
+                }
+                if (file) {
+                    formData.append('file', file);
+                }
+
+                formData.append('name', data.name);
+                formData.append('description', data.description);
+                formData.append('address', data.address);
+                formData.append("_method", 'PATCH')
+
+                const response = await axios.post(`/api/hotel/${id}`,  formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+                console.log(response);
             } catch (error) {
-                console.error('Ошибка при выполнении запроса:', error);
+                if (error.response && error.response.status === 422) {
+                    commit('setErrors', error.response.data.errors)
+                    console.log(error.response.data.errors)
+                } else {
+                    console.error(error);
+                }
+                console.error('Ошибка при выполнении запроса:', error.response.data);
             }
         },
     }
