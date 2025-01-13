@@ -222,7 +222,7 @@ export default  {
                             'Content-Type': 'multipart/form-data'
                         }
                     });
-                console.log(response);
+                console.log(response.data);
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     commit('setErrors', error.response.data.errors)

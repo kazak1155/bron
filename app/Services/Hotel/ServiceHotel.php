@@ -23,8 +23,30 @@ class ServiceHotel
         }
     }
 
-    public function update()
+    public function update($data, $id)
     {
-//        return 'this is service update';
+        $hotel = Hotel::find($id);
+        $hotel->name = $data['name'];
+        $hotel->description = $data['description'];
+        $hotel->address = $data['address'];
+        $hotel->save();
+
+        if(array_key_exists('file', $data)) {
+            $hotel = Hotel::find($id);
+            $originalExtension  = $data['file']->getClientOriginalExtension();
+            $path = 'data' . DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR .'hotel_' . $hotel->id . DIRECTORY_SEPARATOR . 'image' . DIRECTORY_SEPARATOR;
+            $imageName = 'hotel_' . $hotel->id . '_image.' . $originalExtension;
+            $path = $data['file']->storeAs($path, $imageName, 'public');
+            $hotel->img_url = $path;
+            $hotel->save();
+
+            return 'file exists';
+        } else {
+            return 'file not exists';
+        }
+
+
+
+        return $data;
     }
 }
