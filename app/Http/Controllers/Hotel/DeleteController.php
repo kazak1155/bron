@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Hotel;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Hotel\HotelResource;
 use App\Models\Hotel;
 
-class DeleteController extends Controller
+class DeleteController extends BaseHotelController
 {
     public function delete(Hotel $hotel) {
 
-        $hotel->delete();
+        $data = $this->service->delete($hotel);
 
-        return $hotel->name;
+        return $data;
     }
 }

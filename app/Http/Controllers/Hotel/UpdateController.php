@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hotel;
 
 use App\Http\Requests\Hotel\UpdateRequest;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class UpdateController extends BaseHotelController
@@ -12,7 +13,8 @@ class UpdateController extends BaseHotelController
         $data = $request->validated();
 
         $data = $this->service->update($data, $id);
+        $hotelName = Hotel::find($id)->name;
 
-        return response()->json(['success' => true, 'data' => $data]);
+        return response()->json(['success' => true, 'hotelName' => $hotelName]);
     }
 }

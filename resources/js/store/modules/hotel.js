@@ -136,7 +136,7 @@ export default  {
             )
                 .then(response => {
                     dispatch('getAllHotels') //получение все отелей
-                    commit('setMessage', ('hotel delete with name: ') + response.data) //установка текта сообщения
+                    commit('setMessage', ('hotel delete with name: ') + response.data) //установка текста сообщения
                     commit('setIsVisible', true) // меняем видимость сообщения
                     commit('serClassMessage', 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
                     setTimeout(() => {
@@ -192,7 +192,6 @@ export default  {
 
         async updateHotel({commit, state}, {file, data}) {
             const id = data.id
-            // console.log(data);
             const formData = new FormData();
             try {
                 if (!data.name) {
@@ -223,6 +222,13 @@ export default  {
                         }
                     });
                 console.log(response.data);
+                commit('setMessage', ('hotel with name: ') + response.data.hotelName + (' edit')) //установка текста сообщения
+                commit('setIsVisible', true) // меняем видимость сообщения
+                commit('serClassMessage', 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
+                setTimeout(() => {
+                    commit('setIsVisible', false)// Скрываем элемент через 3 секунды
+                }, 3000);
+                await router.push({name: 'show.hotel', id}) // Используем метод push и ждем его завершения
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     commit('setErrors', error.response.data.errors)

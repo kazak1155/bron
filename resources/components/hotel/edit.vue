@@ -6,7 +6,6 @@
             </h1>
         </div>
 
-
         <form
             @submit.prevent="updateHotel({id: hotel.id, name: hotel.name, description: hotel.description, address: hotel.address})">
             <div>

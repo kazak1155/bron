@@ -3,6 +3,7 @@
 namespace App\Services\Hotel;
 
 use App\Models\Hotel;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceHotel
 {
@@ -45,8 +46,17 @@ class ServiceHotel
             return 'file not exists';
         }
 
-
-
         return $data;
+    }
+
+    public function delete($hotel)
+    {
+        $directoryPath = 'data'. DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR . 'hotel_' . $hotel    ->id; // Укажите относительный путь к директории
+        if (Storage::disk('public')->exists($directoryPath)) {
+            Storage::disk('public')->deleteDirectory($directoryPath);
+        }
+        $hotel->delete();
+
+        return $hotel->name;
     }
 }

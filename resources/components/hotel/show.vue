@@ -1,13 +1,17 @@
-
 <template>
+    <div v-show="visibleMessage == true" :class="classMessage" >
+        {{ message }}
+    </div>
     <div class="container mt-5">
         <h1>
             Index hotel
         </h1>
     </div>
-    <div class="card m-lg-3 p-3" style="width: 30%">
-        <img :src='hotel.img_url' alt="изображение отеля" />
+    <div class="card m-lg-3 p-3" style="width: 40%">
         <div class="card-body">
+            <div v-if="hotel.img_url !== '/storage/'">
+                <img :src='hotel.img_url' class="w-50" alt="изображение отеля"/>
+            </div>
             <h5 class="card-title fw-bold"><span class="highlight">name: </span> {{ hotel.name }}</h5>
             <p class="card-text">description: <b>{{ hotel.description }}</b></p>
             <p class="card-text">address: <b>{{ hotel.address }}</b></p>
@@ -38,7 +42,10 @@ export default {
 
     computed: {
         ...mapGetters({
-            hotel: 'hotel/hotel'
+            hotel: 'hotel/hotel',
+            message: 'hotel/message',
+            visibleMessage: 'hotel/isVisible',
+            classMessage: 'hotel/classMessage',
         }),
     },
 }
