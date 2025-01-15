@@ -72,6 +72,11 @@ export default {
         })
     },
 
+    mounted() {
+        this.$store.commit('hotel/setResetHotel')
+    },
+
+
     methods: {
 
         onFileChange(event) {

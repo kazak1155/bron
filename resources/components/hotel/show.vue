@@ -48,6 +48,8 @@ export default {
             classMessage: 'hotel/classMessage',
         }),
     },
+
+
 }
 </script>
 

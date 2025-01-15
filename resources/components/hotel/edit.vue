@@ -38,7 +38,7 @@
                     <p class="w-25 alert alert-danger">{{ errors.address }}</p>
                 </div>
             </div>
-            <div v-if="hotel.img_url">
+            <div v-if="hotel.img_url !== '/storage/'">
                 <img :src='hotel.img_url' class="w-50" alt="изображение отеля"/>
             </div>
             <div class="mb-3 border-top">

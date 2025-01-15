@@ -224,10 +224,12 @@ export default  {
                 console.log(response.data);
                 commit('setMessage', ('hotel with name: ') + response.data.hotelName + (' edit')) //установка текста сообщения
                 commit('setIsVisible', true) // меняем видимость сообщения
-                commit('serClassMessage', 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
+                commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
                 setTimeout(() => {
                     commit('setIsVisible', false)// Скрываем элемент через 3 секунды
                 }, 3000);
+                commit('setImageUrl', null)
+                commit('setResetHotel')
                 await router.push({name: 'show.hotel', id}) // Используем метод push и ждем его завершения
             } catch (error) {
                 if (error.response && error.response.status === 422) {
