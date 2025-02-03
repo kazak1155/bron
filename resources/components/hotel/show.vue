@@ -15,13 +15,9 @@
             <h5 class="card-title fw-bold"><span class="highlight">name: </span> {{ hotel.name }}</h5>
             <p class="card-text">description: <b>{{ hotel.description }}</b></p>
             <p class="card-text">address: <b>{{ hotel.address }}</b></p>
-            <template v-for="room in hotel.room_id">
-                <router-link class="btn btn-primary m-lg-2" :to="{ name: 'room.show', params: { id: room.id }}">
-                    {{ room.name }}
-                </router-link>
-            </template>
-            <div v-if="rooms != null">
-                room exist
+            <div v-if="rooms">
+              rooms in hotel
+                <br>
                 <template v-for="room in rooms">
                     <router-link class="btn btn-primary m-lg-2" :to="{ name: 'show.room', params: { id: room.id }}">
                         {{ room.name }}

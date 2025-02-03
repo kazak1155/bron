@@ -5,26 +5,35 @@ export default  {
 
     state: {
         rooms: null,
-        message: null,
-        isVisible: false,
-        classMessage: null,
+        room: {
+            id: null,
+            name: null,
+            description: null,
+            price: null,
+            hotel_id: null,
+        },
     },
 
     getters: {
         rooms:  state => {
             return state.rooms
         },
+        room: state => {
+            return state.room
+        }
     },
 
     mutations: {
         setRooms(state, rooms) {
             state.rooms = rooms
         },
+        setRoom(state, room) {
+            state.room = room
+        }
     },
 
     actions: {
         getRoomsInHotel({ commit, state }, id) {
-            // console.log(id);
             axios.get(`/api/rooms/${id}`)
                 .then(response => {
                     commit('setRooms', response.data)
@@ -34,5 +43,17 @@ export default  {
                     console.log(error.message)
                 });
         },
+
+        getOneRoom({commit}, id) {
+            console.log(id);
+            axios.get(`/api/room/${id}`)
+                .then(response => {
+                    commit('setRoom', response.data.data)
+                    console.log(response.data.data)
+                })
+                .catch(error => {
+                    console.log(error.message)
+                });
+        }
     },
 }

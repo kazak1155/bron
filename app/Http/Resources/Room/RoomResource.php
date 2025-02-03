@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Hotel;
+namespace App\Http\Resources\Room;
 
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
-
-class HotelResource extends JsonResource
+class RoomResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,8 +18,9 @@ class HotelResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'address' => $this->address,
-            'img_url' => Storage::url($this->img_url),
+            'price' => $this->price,
+            'hotel_id' => $this->hotel_id,
+            'hotel_name' => Hotel::find($this->hotel_id)->name,
         ];
     }
 }
