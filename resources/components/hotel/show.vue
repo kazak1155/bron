@@ -22,6 +22,11 @@
             </template>
             <div v-if="rooms != null">
                 room exist
+                <template v-for="room in rooms">
+                    <router-link class="btn btn-primary m-lg-2" :to="{ name: 'show.room', params: { id: room.id }}">
+                        {{ room.name }}
+                    </router-link>
+                </template>
             </div>
         </div>
     </div>
@@ -41,7 +46,7 @@ export default {
 
     mounted() {
         this.$store.dispatch('hotel/getOneHotel', this.$route.params.id)
-        this.$store.dispatch('room/getRoomsInHotel')
+        this.$store.dispatch('room/getRoomsInHotel', this.$route.params.id)
     },
 
     computed: {

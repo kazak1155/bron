@@ -24,7 +24,8 @@ export default  {
 
     actions: {
         getRoomsInHotel({ commit, state }, id) {
-            axios.get("/api/room")
+            // console.log(id);
+            axios.get(`/api/rooms/${id}`)
                 .then(response => {
                     commit('setRooms', response.data)
                     console.log(response.data)

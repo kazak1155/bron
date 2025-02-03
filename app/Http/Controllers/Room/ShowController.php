@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
-    public function showRoomInHotel()
+    public function showRoomInHotel($id)
     {
         $rooms= Room::select('name', 'id')
-            ->where('hotel_id', '2')
+            ->where('hotel_id', $id)
             ->get();
 
         return $rooms;
