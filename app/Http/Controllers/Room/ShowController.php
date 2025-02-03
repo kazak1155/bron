@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Room;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Room\RoomInHotelResource;
 use App\Http\Resources\Room\RoomResource;
 use App\Models\Room;
 use Illuminate\Http\Request;

@@ -45,7 +45,6 @@ export default  {
         },
 
         getOneRoom({commit}, id) {
-            console.log(id);
             axios.get(`/api/room/${id}`)
                 .then(response => {
                     commit('setRoom', response.data.data)
