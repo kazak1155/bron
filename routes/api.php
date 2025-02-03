@@ -21,4 +21,4 @@ Route::post('hotel_store', [StoreController::class, 'store'])->name('store.hotel
 Route::patch('hotel/{hotel}', [UpdateController::class, 'update'])->name('update.hotel');
 
 
-Route::get('room/{room}', [RoomShowController::class, 'showRoomInHotel'])->name('show.Room');
+Route::get('room', [RoomShowController::class, 'showRoomInHotel'])->name('show.Room');

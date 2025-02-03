@@ -20,6 +20,9 @@
                     {{ room.name }}
                 </router-link>
             </template>
+            <div v-if="rooms != null">
+                room exist
+            </div>
         </div>
     </div>
     <div>
@@ -38,9 +41,13 @@ export default {
 
     mounted() {
         this.$store.dispatch('hotel/getOneHotel', this.$route.params.id)
+        this.$store.dispatch('room/getRoomsInHotel')
     },
 
     computed: {
+        ...mapGetters({
+            rooms: 'room/rooms'
+        }),
         ...mapGetters({
             hotel: 'hotel/hotel',
             message: 'hotel/message',
