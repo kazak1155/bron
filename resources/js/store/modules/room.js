@@ -5,6 +5,9 @@ export default  {
 
     state: {
         rooms: null,
+        imageUrl:null,
+        selectedHotel: null,
+        hotels: [],
         room: {
             id: null,
             name: null,
@@ -20,6 +23,15 @@ export default  {
         },
         room: state => {
             return state.room
+        },
+        imageUrl: state => {
+            return state.imageUrl
+        },
+        selectedHotel: state => {
+            return state.selectedHotel
+        },
+        hotels: state => {
+            return state.hotels
         }
     },
 
@@ -29,6 +41,21 @@ export default  {
         },
         setRoom(state, room) {
             state.room = room
+        },
+        setImageUrl(state, imageUrl) {
+            state.imageUrl = imageUrl
+        },
+        setResetRoom(state) {
+            state.room.name = null,
+                state.room.description = null,
+                state.room.price = null,
+                state.imageUrl = null
+        },
+        setSelectedHotel(state, hotel) {
+            state.selectedHotel = hotel;
+        },
+        setHotels(state, hotels) {
+            state.hotels = hotels;
         }
     },
 
@@ -53,6 +80,14 @@ export default  {
                 .catch(error => {
                     console.log(error.message)
                 });
+        },
+
+        getListHotels(){
+            console.log('list hotels');
+        },
+
+        async storeRoom({commit, dispatch, state}, {file, data}){
+            console.log(111);
         }
     },
 }

@@ -14,6 +14,9 @@
                     <li class="nav-item">
                         <router-link class="nav-link active" :to="{ name: 'store.hotel' }">store hotel</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link active" :to="{ name: 'store.room' }">store room</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

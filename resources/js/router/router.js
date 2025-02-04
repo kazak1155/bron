@@ -42,6 +42,11 @@ const routes = [
         name: "show.room",
         component: () => import('../../components/room/show.vue'),
     },
+    {
+        path: "/roomStoew",
+        name: "store.room",
+        component: () => import('../../components/room/store.vue'),
+    },
 ];
 
 const router = createRouter({
