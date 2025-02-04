@@ -35,29 +35,21 @@
             </div>
             <div>
                 <label for="options">select hotel:</label>
-                <select>
-                    <option>
-                        1
-                    </option>
-                    <option>
-                        2
-                    </option>
-                    <option>
-                        3
-                    </option>
-                </select>
-                <select v-model="selectedHotel">
+<!--                    <select id="hotels" @change="onHotelChange" v-model="selectedHotel">-->
+<!--                        <option v-for="hotel in hotels" :key="hotel.name" :value="hotel.name">-->
+<!--                            {{ hotel.name }}-->
+<!--                        </option>-->
+<!--                    </select>-->
+<!--                <select id="mySelect" v-model="selectedHotel">-->
+                <select id="mySelect" v-model="localSelectedHotel" @change="onHotelChange">
+                    <option disabled value="">Пожалуйста, выберите один вариант</option>
                     <option v-for="hotel in hotels" :key="hotel.id" :value="hotel.name">
                         {{ hotel.name }}
                     </option>
                 </select>
-<!--                <select id="options" @change="onHotelChange" v-model="selectedHotel>-->
-<!--                    <option v-for="option in options" :key="option" :value="option">-->
-<!--                        {{ option }}-->
-<!--                    </option>-->
-<!--                </select>-->
-<!--                <p>selected hotel: {{ selectedHotel }}</p>-->
+                <p v-if="localSelectedHotel" >selected hotel: {{ localSelectedHotel }}</p>
             </div>
+            <br>
             <div class="mb-3 border-top">
                 <label class="form-formData.bel">upload image room</label>
                 <br>
@@ -85,6 +77,12 @@ import {mapGetters} from 'vuex';
 
 export default {
 
+    data() {
+        return {
+            localSelectedHotel: null,
+        };
+    },
+
     computed: {
         ...mapGetters({
             room: 'room/room',
@@ -107,7 +105,8 @@ export default {
     methods: {
 
         onHotelChange(event) {
-            // this.$store.dispatch('updateSelectedOption', event.target.value);
+            this.$store.commit('room/setSelectedHotel', this.localSelectedHotel);
+            console.log(this.localSelectedHotel);
         },
 
         onFileChange(event) {

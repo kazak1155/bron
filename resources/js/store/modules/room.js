@@ -82,8 +82,15 @@ export default  {
                 });
         },
 
-        getListHotels(){
-            console.log('list hotels');
+        getListHotels({commit}){
+            axios.get(`/api/listHotels`)
+                .then(response => {
+                    commit('setHotels', response.data)
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error.message)
+                });
         },
 
         async storeRoom({commit, dispatch, state}, {file, data}){

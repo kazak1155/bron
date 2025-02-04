@@ -23,3 +23,6 @@ Route::patch('hotel/{hotel}', [UpdateController::class, 'update'])->name('update
 
 Route::get('rooms/{hotel}', [RoomShowController::class, 'showRoomInHotel']);
 Route::get('room/{room}', [RoomShowController::class, 'showOneRoom']);
+
+Route::get('listHotels', [RoomShowController::class, 'showListHotels']);
+
