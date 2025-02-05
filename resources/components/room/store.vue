@@ -5,9 +5,9 @@
     <div>
         <h2>Store room</h2>
         <form
-            @submit.prevent="storeRoom({name: room.name, description: room.description, price: room.price})">
+            @submit.prevent="storeRoom()">
             <div class="mb-3 border-top">
-                <label class="form-label">enter room name</label>
+                <label class="form-label">enter name room</label>
                 <br>
                 <input class="mb-3" v-model="room.name" type="text" id="roomName" placeholder="room name"/>
 <!--                <div v-if="errors?.name?.length">-->
@@ -17,7 +17,7 @@
             <div class="mb-3 border-top">
                 <label class="form-label">enter description room</label>
                 <br>
-                <input class="mb-3" v-model="room.description" type="text" name="description" id="roomDescription"
+                <input class="mb-3" v-model="room.description" type="text" name="roomDescription" id="roomDescription"
                        placeholder="room description">
 <!--                <div v-if="errors?.description?.length">-->
 <!--                    <template v-for="error in errors.description">-->
@@ -47,7 +47,7 @@
                         {{ hotel.name }}
                     </option>
                 </select>
-                <p v-if="localSelectedHotel" >selected hotel: {{ localSelectedHotel }}</p>
+                <p v-if="localSelectedHotel" > <br> selected hotel: <b>{{ localSelectedHotel }}</b></p>
             </div>
             <br>
             <div class="mb-3 border-top">
@@ -104,9 +104,9 @@ export default {
 
     methods: {
 
-        onHotelChange(event) {
+        onHotelChange() {
             this.$store.commit('room/setSelectedHotel', this.localSelectedHotel);
-            console.log(this.localSelectedHotel);
+            // console.log(this.localSelectedHotel);
         },
 
         onFileChange(event) {
@@ -114,14 +114,18 @@ export default {
         },
 
         storeRoom(Room) {
-            console.log(555);
-            //     const file = this.file;
-        //     const data = {
-        //         name: hotel.name,
-        //         description: hotel.description,
-        //         address: hotel.address
-        //     };
-        //     this.$store.dispatch('hotel/storeHotel', { file, data });
+            console.log('method in vue component');
+            // const image_url = this.localSelectedHotel
+            const file = this.file;
+            // console.log(image_url);
+            console.log(this.room.name)
+            const data = {
+                name: this.room.name,
+                description: this.room.description,
+                price: this.room.price,
+                image_url: this.localSelectedHotel
+            };
+            // this.$store.dispatch('room/storeRoom', { file, data });
         },
     }
 };

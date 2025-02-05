@@ -15,7 +15,7 @@
             <h5 class="card-title fw-bold"><span class="highlight">name: </span> {{ hotel.name }}</h5>
             <p class="card-text">description: <b>{{ hotel.description }}</b></p>
             <p class="card-text">address: <b>{{ hotel.address }}</b></p>
-            <div v-if="rooms.length > 0">
+            <div v-if="rooms">
               rooms in hotel
                 <br>
                 <template v-for="room in rooms">

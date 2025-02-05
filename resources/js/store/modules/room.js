@@ -14,6 +14,7 @@ export default  {
             description: null,
             price: null,
             hotel_id: null,
+            image_url: null,
         },
     },
 
@@ -63,8 +64,11 @@ export default  {
         getRoomsInHotel({ commit, state }, id) {
             axios.get(`/api/rooms/${id}`)
                 .then(response => {
-                    commit('setRooms', response.data)
-                    console.log(response.data)
+                    if (response.data.length > 0) {
+                        commit('setRooms', response.data)
+                    } else {
+                        commit('setRooms', null)
+                    }
                 })
                 .catch(error => {
                     console.log(error.message)
@@ -94,7 +98,7 @@ export default  {
         },
 
         async storeRoom({commit, dispatch, state}, {file, data}){
-            console.log(111);
+            console.log('method in room store');
         }
     },
 }
