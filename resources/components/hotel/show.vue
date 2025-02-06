@@ -1,6 +1,6 @@
 <template>
-    <div v-show="visibleMessage == true" :class="classMessage" >
-        {{ message }}
+    <div v-if="visibleMessageHotel || visibleMessageRoom" :class="classMessageRoom == null ? classMessageHotel : classMessageRoom ">
+        {{ messageRoom }} {{ messageHotel }}
     </div>
     <div class="container mt-5">
         <h1>
@@ -10,7 +10,7 @@
     <div class="card m-lg-3 p-3" style="width: 40%">
         <div class="card-body">
             <div v-if="hotel.img_url !== '/storage/'">
-                <img :src='hotel.img_url' class="w-50" alt="изображение отеля"/>
+                <img :src='hotel.img_url' class="w-75" alt="изображение отеля"/>
             </div>
             <h5 class="card-title fw-bold"><span class="highlight">name: </span> {{ hotel.name }}</h5>
             <p class="card-text">description: <b>{{ hotel.description }}</b></p>
@@ -43,21 +43,21 @@ export default {
     mounted() {
         this.$store.dispatch('hotel/getOneHotel', this.$route.params.id)
         this.$store.dispatch('room/getRoomsInHotel', this.$route.params.id)
+        this.$store.commit('room/setMessage', null)
     },
 
     computed: {
         ...mapGetters({
-            rooms: 'room/rooms'
-        }),
-        ...mapGetters({
+            rooms: 'room/rooms',
             hotel: 'hotel/hotel',
-            message: 'hotel/message',
-            visibleMessage: 'hotel/isVisible',
-            classMessage: 'hotel/classMessage',
+            messageHotel: 'hotel/message',
+            visibleMessageHotel: 'hotel/isVisible',
+            classMessageHotel: 'hotel/classMessage',
+            messageRoom: 'room/message',
+            visibleMessageRoom: 'room/visibleMessage',
+            classMessageRoom: 'room/classMessage',
         }),
     },
-
-
 }
 </script>
 

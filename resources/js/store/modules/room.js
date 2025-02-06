@@ -23,7 +23,7 @@ export default  {
             hotel_id: null,
         },
         message: null,
-        isVisible: false,
+        visibleMessage: false,
         classMessage: null,
     },
 
@@ -46,8 +46,8 @@ export default  {
         message: state => {
             return state.message
         },
-        isVisible: state => {
-            return state.isVisible
+        visibleMessage: state => {
+            return state.visibleMessage
         },
         classMessage: state => {
             return state.classMessage
@@ -69,9 +69,11 @@ export default  {
         },
         setResetRoom(state) {
             state.room.name = null,
-                state.room.description = null,
-                state.room.price = null,
-                state.imageUrl = null
+            state.room.description = null,
+            state.room.price = null,
+            state.room.price = null,
+            state.room.price= null,
+            state.imageUrl = null
         },
         setSelectedHotel(state, hotel) {
             state.selectedHotel = hotel;
@@ -83,11 +85,11 @@ export default  {
             state.message = message
         },
 
-        setIsVisible(state, isVisible) {
-            state.isVisible = isVisible
+        setVisibleMessage(state, visibleMessage) {
+            state.visibleMessage = visibleMessage
         },
 
-        serClassMessage(state, classMessage) {
+        setClassMessage(state, classMessage) {
             state.classMessage = classMessage
         },
         setErrors(state, errors){
@@ -104,7 +106,8 @@ export default  {
 
         setErrorHotel_id(state, hotel_id) {
             state.errors.hotel_id = hotel_id
-        }
+        },
+
     },
 
     actions: {
@@ -145,7 +148,7 @@ export default  {
         },
 
         async storeRoom({commit, dispatch, state}, {file, data}){
-            console.log('method in room store');
+            // console.log('method in room store');
             // console.log(file);
             try {
                 const formData = new FormData();
@@ -169,7 +172,6 @@ export default  {
                     commit('setErrorHotel_id', null)
                 }
                 if (file) {
-                    console.log('file exist');
                     formData.append('file', file);
                 }
 
@@ -178,9 +180,16 @@ export default  {
                 formData.append('price', data.price);
                 formData.append('hotel_id', data.hotel_id);
                 const response = await axios.post('/api/room_store',  formData);
-                console.log(response.data);
-                // await router.push({name: 'index.hotel'}) // Используем метод push и ждем его завершения
-                // commit('setResetHotel')
+                commit('setMessage', ('new room create with name: ') + data.name) //установка текста сообщения
+                commit('setVisibleMessage', true) // меняем видимость сообщения
+                commit('setClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
+                setTimeout(() => {
+                    commit('setVisibleMessage', false)// Скрываем элемент через 3 секунды
+                }, 5000);
+
+                // console.log(response.data);
+                await router.push({name: 'show.hotel', params: { id: data.hotel_id }}) // Используем метод push и ждем его завершения
+                commit('setResetRoom')
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     commit('setErrors', error.response.data.errors)

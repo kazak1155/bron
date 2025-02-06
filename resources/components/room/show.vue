@@ -1,5 +1,5 @@
 <template>
-    <div v-show="visibleMessage == true" :class="classMessage" >
+    <div v-show="visibleMessage" :class="classMessage" >
         {{ message }}
     </div>
     <div class="container mt-5">
@@ -9,9 +9,9 @@
     </div>
     <div class="card m-lg-3 p-3" style="width: 40%">
         <div class="card-body">
-<!--            <div v-if="hotel.img_url !== '/storage/'">-->
-<!--                <img :src='hotel.img_url' class="w-50" alt="изображение отеля"/>-->
-<!--            </div>-->
+            <div v-if="room.image_url !== '/storage/'">
+                <img :src='room .image_url' class="w-50" alt="изображение комнаты"/>
+            </div>
             <p class="card-text">name: <h5 class="card-title fw-bold">{{ room.name }}</h5></p>
             <p class="card-text">description: <b>{{ room.description }}</b></p>
             <p class="card-text">price for day: <b>{{ room.price }}</b></p>

@@ -10,9 +10,9 @@ class StoreController extends BaseRoomController
 {
     public function store(StoreRequest $request) {
 
-//        $data = $request->validated();
+        $data = $request->validated();
 
-        $data = $this->service->store($request);
+        $data = $this->service->store($data);
 
 //        return response()->json(['success' => true, 'data' => $data]);
         return $data;

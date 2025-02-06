@@ -1,5 +1,5 @@
 <template>
-    <div v-show="visibleMessage == true" :class="classMessage" >
+    <div v-if="visibleMessage" :class="classMessage" >
         {{ message }}
     </div>
     <div>
@@ -47,9 +47,13 @@
                 <br>
                 <input class="mb-3" type="file" @change="onFileChange"/>
             </div>
+
             <div v-if="imageUrl" class="mb-3">
                 <h3>Предпросмотр изображения:</h3>
                 <img :src="imageUrl" alt="Uploaded Image" width="200"/>
+            </div>
+            <div v-if="errors?.file?.length">
+                <p class="w-25 alert alert-danger">{{ errors.file }}</p>
             </div>
             <div class="mb-3">
                 <button class="btn btn-primary" type="submit">Create room</button>
@@ -67,6 +71,8 @@ export default {
     data() {
         return {
             localSelectedHotel: null,
+            fileExtension: null,
+            selectedFile: null,
         };
     },
 
@@ -75,12 +81,11 @@ export default {
             room: 'room/room',
             selectedHotel: 'room/selectedHotel',
             hotels: 'room/hotels',
-            // file: 'hotel/image',
             imageUrl: 'room/imageUrl',
             errors: 'room/errors',
-            message: 'hotel/message',
-            visibleMessage: 'hotel/isVisible',
-            classMessage: 'hotel/classMessage',
+            message: 'room/message',
+            visibleMessage: 'room/visibleMessage',
+            classMessage: 'room/classMessage',
         }),
         selectedHotelId() {
             const selectedHotel = this.hotels.find(hotel => hotel.name === this.localSelectedHotel);
@@ -97,19 +102,23 @@ export default {
 
         onHotelChange(event) {
             this.$store.commit('room/setSelectedHotel', this.localSelectedHotel);
-            console.log('ID выбранного отеля:', this.selectedHotelId);
+            // console.log('ID выбранного отеля:', this.selectedHotelId);
         },
 
         onFileChange(event) {
             this.$store.commit('room/setImageUrl', URL.createObjectURL(event.target.files[0]))
+            const file = event.target.files[0]; // Получаем загруженный файл
+            this.selectedFile = file
+
+
+            // Извлекаем расширение файла
+            this.fileExtension = file.name.split('.').pop(); // Разделяем имя файла по точкам и берем последнее значение
+            // console.log(this.fileExtension);
         },
 
         storeRoom(Room) {
-            console.log('method in vue component');
-            const file = this.file;
-
-            // console.log(this.localSelectedHotel);
-            // console.log(this.room.name)
+            // console.log('method in vue component');
+            const file = this.selectedFile ;
             const data = {
                 name: this.room.name,
                 description: this.room.description,
