@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\Storage;
 class ServiceRoom
 {
     public function store($data) {
-//        $newRoom = Room::create($data);
+        $newRoom = Room::create($data);
         if(array_key_exists('file', $data)) {
-//            $originalExtension  = $data['file']->getClientOriginalExtension();
-//            $lastCreateRoom = Room::latest()->first();
-//            $path = 'data' . DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR .'hotel_' . $lastCreateRoom->hotel_id . DIRECTORY_SEPARATOR . 'room' . DIRECTORY_SEPARATOR . 'room_' . $lastCreateRoom->id . DIRECTORY_SEPARATOR . 'image' . DIRECTORY_SEPARATOR;
-//            $imageName = 'room_' . $lastCreateRoom->id . '_image.' . $originalExtension;
-//            $path = $data['file']->storeAs($path, $imageName, 'public');
-//            $lastCreateRoom->image_url = $path;
-//            $lastCreateRoom->save();
+            $originalExtension  = $data['file']->getClientOriginalExtension();
+            $lastCreateRoom = Room::latest()->first();
+            $path = 'data' . DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR .'hotel_' . $lastCreateRoom->hotel_id . DIRECTORY_SEPARATOR . 'room' . DIRECTORY_SEPARATOR . 'room_' . $lastCreateRoom->id . DIRECTORY_SEPARATOR . 'image';
+            $imageName = 'room_' . $lastCreateRoom->id . '_image.' . $originalExtension;
+            $path = $data['file']->storeAs($path, $imageName, 'public');
+            $lastCreateRoom->image_url = $path;
+            $lastCreateRoom->save();
             return 'file exists';
         } else {
             return 'file not exists';
@@ -48,14 +48,17 @@ class ServiceRoom
 //        return $data;
     }
 
-    public function delete($hotel)
+    public function delete($room)
     {
-//        $directoryPath = 'data'. DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR . 'hotel_' . $hotel    ->id; // Укажите относительный путь к директории
-//        if (Storage::disk('public')->exists($directoryPath)) {
-//            Storage::disk('public')->deleteDirectory($directoryPath);
-//        }
-//        $hotel->delete();
-//
-//        return $hotel->name;
+        $filePath = 'data'. DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR . 'hotel_' . $room->hotel_id . DIRECTORY_SEPARATOR . 'room' . DIRECTORY_SEPARATOR . 'room_' . $room->id . DIRECTORY_SEPARATOR . 'image' . DIRECTORY_SEPARATOR . 'room_' . $room->id . '_image.jpg'; // Укажите относительный путь к файлу
+        if (Storage::disk('public')->exists($filePath)) {
+             Storage::disk('public')->delete($filePath);
+        }
+//        $room->delete();
+
+        return [
+            'name' => $room->name,
+            'hotel_id' => $room->hotel_id
+        ];
     }
 }

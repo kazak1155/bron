@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Vuex from 'vuex';
 import router from "../../router/router.js";
 
 export default  {

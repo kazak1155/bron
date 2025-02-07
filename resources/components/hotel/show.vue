@@ -18,11 +18,22 @@
             <div v-if="rooms">
               rooms in hotel
                 <br>
-                <template v-for="room in rooms">
-                    <router-link class="btn btn-primary m-lg-2" :to="{ name: 'show.room', params: { id: room.id }}">
-                        {{ room.name }}
-                    </router-link>
-                </template>
+                <div class="d-flex justify-content-between">
+                    <template v-for="room in rooms">
+                        <div class="box">
+                            <div class="container mt-4 text-center">
+                                <button class="btn btn-primary">
+                                    <router-link class="btn btn-primary m-lg-2" :to="{ name: 'show.room', params: { id: room.id }}">
+                                        {{ room.name }}
+                                    </router-link>
+                                </button>
+                                <button  class="btn btn-secondary">
+                                    <i @click.prevent="$store.dispatch('room/deleteRoom', room.id)"  class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
             </div>
         </div>
     </div>

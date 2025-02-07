@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Hotel\ShowController;
 use App\Http\Controllers\Room\ShowController as RoomShowController;
-use App\Http\Controllers\Room\StoreController as RoomStoreController;;
+use App\Http\Controllers\Room\StoreController as RoomStoreController;
+use App\Http\Controllers\Room\DeleteController as RoomDeleteController;
 
 
 Route::get('/user', function (Request $request) {
@@ -25,6 +26,7 @@ Route::patch('hotel/{hotel}', [UpdateController::class, 'update'])->name('update
 Route::get('rooms/{hotel}', [RoomShowController::class, 'showRoomInHotel']);
 Route::get('room/{room}', [RoomShowController::class, 'showOneRoom']);
 Route::post('room_store', [RoomStoreController::class, 'store']);
+Route::delete('room/{room}', [RoomDeleteController::class, 'deleteRoom']);
 
 Route::get('listHotels', [RoomShowController::class, 'showListHotels']);
 

@@ -147,9 +147,23 @@ export default  {
                 });
         },
 
+        async deleteRoom({dispatch, commit}, id) {
+            try {
+                const response = await axios.delete(`/api/room/${id}`);
+                        commit('setMessage', (' room delete with name: ') + response.data.name) //установка текста сообщения
+                        commit('setVisibleMessage', true) // меняем видимость сообщения
+                        commit('setClassMessage', 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
+                        setTimeout(() => {
+                        commit('setVisibleMessage', false)// Скрываем элемент через 5 секунд
+                        }, 5000);
+                console.log(response.data.hotel_id);
+                await router.push({name: 'show.hotel"', params: {id: response.data.hotel_id}}) // Используем метод push и ждем его завершения
+            } catch (error) {
+                // console.log(error.response)
+            }
+        },
+
         async storeRoom({commit, dispatch, state}, {file, data}){
-            // console.log('method in room store');
-            // console.log(file);
             try {
                 const formData = new FormData();
 
