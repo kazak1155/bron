@@ -54,7 +54,7 @@ class ServiceRoom
         if (Storage::disk('public')->exists($filePath)) {
              Storage::disk('public')->delete($filePath);
         }
-//        $room->delete();
+        $room->delete();
 
         return [
             'name' => $room->name,
