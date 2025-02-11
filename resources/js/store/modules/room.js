@@ -157,7 +157,7 @@ export default  {
                         commit('setVisibleMessage', false)// Скрываем элемент через 5 секунд
                         }, 5000);
                 console.log(response.data.hotel_id);
-                await router.push({name: 'show.hotel"', params: {id: response.data.hotel_id}}) // Используем метод push и ждем его завершения
+                router.go();
             } catch (error) {
                 // console.log(error.response)
             }
@@ -200,10 +200,10 @@ export default  {
                 setTimeout(() => {
                     commit('setVisibleMessage', false)// Скрываем элемент через 3 секунды
                 }, 5000);
-
                 // console.log(response.data);
                 await router.push({name: 'show.hotel', params: { id: data.hotel_id }}) // Используем метод push и ждем его завершения
                 commit('setResetRoom')
+                // console.log(state.message);
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     commit('setErrors', error.response.data.errors)
