@@ -213,5 +213,58 @@ export default  {
                 }
             }
         },
+
+        async editRoom() {
+            console.log('method in store room');
+            const id = data.id
+            const formData = new FormData();
+            try {
+                if (!data.name) {
+                    commit('setErrorName', 'поле не должно быть пустым JS')
+                    return;
+                } else {
+                    commit('setErrorName', null)
+                }
+                if (!data.address) {
+                    commit('setErrorAddress', 'поле не должно быть пустым JS')
+                    return;
+                } else {
+                    commit('setErrorAddress', null)
+                }
+                if (file) {
+                    formData.append('file', file);
+                }
+
+                formData.append('name', data.name);
+                formData.append('description', data.description);
+                formData.append('address', data.address);
+                formData.append("_method", 'PATCH')
+
+                const response = await axios.post(`/api/hotel/${id}`, formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+                console.log(response.data);
+                // commit('setMessage', ('hotel with name: ') + response.data.hotelName + (' edit')) //установка текста сообщения
+                // commit('setIsVisible', true) // меняем видимость сообщения
+                // commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
+                // setTimeout(() => {
+                //     commit('setIsVisible', false)// Скрываем элемент через 3 секунды
+                // }, 3000);
+                // commit('setImageUrl', null)
+                // commit('setResetHotel')
+                // await router.push({name: 'show.hotel', id}) // Используем метод push и ждем его завершения
+            } catch (error) {
+                // if (error.response && error.response.status === 422) {
+                //     commit('setErrors', error.response.data.errors)
+                //     console.log(error.response.data.errors)
+                // } else {
+                //     console.error(error);
+                // }
+                console.error('Ошибка при выполнении запроса:', error.response.data);
+            }
+        }
     },
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Hotel\ShowController;
 use App\Http\Controllers\Room\ShowController as RoomShowController;
 use App\Http\Controllers\Room\StoreController as RoomStoreController;
 use App\Http\Controllers\Room\DeleteController as RoomDeleteController;
+use App\Http\Controllers\Room\UpdateController as RoomUpdateController;
 
 
 Route::get('/user', function (Request $request) {
@@ -27,6 +28,7 @@ Route::get('rooms/{hotel}', [RoomShowController::class, 'showRoomInHotel']);
 Route::get('room/{room}', [RoomShowController::class, 'showOneRoom']);
 Route::post('room_store', [RoomStoreController::class, 'store']);
 Route::delete('room/{room}', [RoomDeleteController::class, 'deleteRoom']);
+Route::patch('room/{room}', [RoomUpdateController::class, 'update']);
 
 Route::get('listHotels', [RoomShowController::class, 'showListHotels']);
 

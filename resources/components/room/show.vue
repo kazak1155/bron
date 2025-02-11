@@ -18,6 +18,11 @@
             <p class="card-text">hotel name: <b>{{ room.hotel_name }}</b></p>
 
         </div>
+        <div>
+                <router-link class="btn btn-warning" :to="{ name: 'edit.room', params: { id: room.id }}">
+                    EDIT <i class="bi bi-tools"></i>
+                </router-link>
+        </div>
     </div>
 </template>
 
