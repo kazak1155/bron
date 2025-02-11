@@ -22,12 +22,13 @@
                     <template v-for="room in rooms">
                         <div class="box">
                             <div class="container mt-4 text-center">
-                                <button class="btn btn-primary">
+<!--                                <button class="btn btn-primary">-->
                                     <router-link class="btn btn-primary m-lg-2" :to="{ name: 'show.room', params: { id: room.id }}">
-                                        {{ room.name }}
+<!--                                        {{ room.name }}-->
+                                        {{ room.name }} <i class="bi bi-journal"></i>
                                     </router-link>
-                                </button>
-                                <button  class="btn btn-secondary">
+<!--                                </button>-->
+                                <button  class="btn btn-danger">
                                     <i @click.prevent="$store.dispatch('room/deleteRoom', room.id)"  class="bi bi-trash"></i>
                                 </button>
                             </div>
