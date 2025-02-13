@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Room;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Room\UpdateRequest;
 use Illuminate\Http\Request;
 
 class UpdateController extends BaseRoomController
 {
-    public function update(Request $request)
+    public function update(UpdateRequest $request)
     {
-        return 'this is function in controller update';
+
+        $data = $request->validated();
+
+        return $request ;
     }
 }

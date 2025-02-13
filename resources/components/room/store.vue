@@ -87,6 +87,7 @@ export default {
             visibleMessage: 'room/visibleMessage',
             classMessage: 'room/classMessage',
         }),
+
         selectedHotelId() {
             const selectedHotel = this.hotels.find(hotel => hotel.name === this.localSelectedHotel);
             return selectedHotel ? selectedHotel.id : null;
@@ -102,7 +103,7 @@ export default {
 
         onHotelChange(event) {
             this.$store.commit('room/setSelectedHotel', this.localSelectedHotel);
-            // console.log('ID выбранного отеля:', this.selectedHotelId);
+            console.log('ID выбранного отеля:', this.selectedHotelId);
         },
 
         onFileChange(event) {

@@ -15,6 +15,7 @@ export default  {
             description: null,
             price: null,
             hotel_id: null,
+            hotel_name: null,
             image_url: null,
         },
         errors: {
@@ -55,6 +56,9 @@ export default  {
         errors: state => {
             return state.errors
         },
+        getRoomHotelId: state => {
+            return state.room.hotel_id
+        }
     },
 
     mutations: {
@@ -125,22 +129,22 @@ export default  {
                 });
         },
 
-        getOneRoom({commit}, id) {
-            axios.get(`/api/room/${id}`)
+        async getOneRoom({commit}, id) {
+            await axios.get(`/api/room/${id}`)
                 .then(response => {
                     commit('setRoom', response.data.data)
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                 })
                 .catch(error => {
                     console.log(error.message)
                 });
         },
 
-        getListHotels({commit}){
-            axios.get(`/api/listHotels`)
+        async getListHotels({commit}){
+            await axios.get(`/api/listHotels`)
                 .then(response => {
                     commit('setHotels', response.data)
-                    console.log(response.data)
+                    // console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error.message)
@@ -166,7 +170,6 @@ export default  {
         async storeRoom({commit, dispatch, state}, {file, data}){
             try {
                 const formData = new FormData();
-
                 if (!data.name) {
                     commit('setErrorName', 'поле не должно быть пустым')
                     return;
@@ -214,37 +217,39 @@ export default  {
             }
         },
 
-        async editRoom() {
-            console.log('method in store room');
+        async editRoom({commit}, {file, data}) {
+            // console.log(data);
             const id = data.id
+            // console.log('id room for edit: ', data.id);
             const formData = new FormData();
             try {
-                if (!data.name) {
-                    commit('setErrorName', 'поле не должно быть пустым JS')
-                    return;
-                } else {
-                    commit('setErrorName', null)
-                }
-                if (!data.address) {
-                    commit('setErrorAddress', 'поле не должно быть пустым JS')
-                    return;
-                } else {
-                    commit('setErrorAddress', null)
-                }
-                if (file) {
-                    formData.append('file', file);
-                }
+                // if (!data.name) {
+                //     // commit('setErrorName', 'поле не должно быть пустым JS')
+                //     return;
+                // } else {
+                //     // commit('setErrorName', null)
+                // }
+                // if (!data.address) {
+                //     // commit('setErrorAddress', 'поле не должно быть пустым JS')
+                //     return;
+                // } else {
+                //     // commit('setErrorAddress', null)
+                // }
+                // if (file) {
+                //     formData.append('file', file);
+                // }
 
                 formData.append('name', data.name);
                 formData.append('description', data.description);
-                formData.append('address', data.address);
+                formData.append('price', data.price);
+                formData.append('hotel_id', data.hotel_id);
                 formData.append("_method", 'PATCH')
 
-                const response = await axios.post(`/api/hotel/${id}`, formData,
+                const response = await axios.post(`/api/room/${id}`, formData,
                     {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
                     });
                 console.log(response.data);
                 // commit('setMessage', ('hotel with name: ') + response.data.hotelName + (' edit')) //установка текста сообщения
@@ -257,13 +262,14 @@ export default  {
                 // commit('setResetHotel')
                 // await router.push({name: 'show.hotel', id}) // Используем метод push и ждем его завершения
             } catch (error) {
-                // if (error.response && error.response.status === 422) {
+                if (error.response && error.response.status === 422) {
                 //     commit('setErrors', error.response.data.errors)
                 //     console.log(error.response.data.errors)
-                // } else {
+                    console.log(error.response);
+                } else {
                 //     console.error(error);
-                // }
-                console.error('Ошибка при выполнении запроса:', error.response.data);
+                }
+                // console.error('Ошибка при выполнении запроса:', error.response.data);
             }
         }
     },

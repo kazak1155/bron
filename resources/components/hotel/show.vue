@@ -18,7 +18,7 @@
             <div v-if="rooms">
               rooms in hotel
                 <br>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-space-between">
                     <template v-for="room in rooms">
                         <div class="box">
                             <div class="container mt-4 text-center">
