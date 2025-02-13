@@ -218,7 +218,7 @@ export default  {
         },
 
         async editRoom({commit}, {file, data}) {
-            // console.log(data);
+            console.log(data);
             const id = data.id
             // console.log('id room for edit: ', data.id);
             const formData = new FormData();
@@ -245,13 +245,13 @@ export default  {
                 formData.append('hotel_id', data.hotel_id);
                 formData.append("_method", 'PATCH')
 
-                const response = await axios.post(`/api/room/${id}`, formData,
-                    {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                    });
-                console.log(response.data);
+                // const response = await axios.post(`/api/room/${id}`, formData,
+                //     {
+                //             headers: {
+                //                 'Content-Type': 'multipart/form-data'
+                //             }
+                //     });
+                // console.log(response.data);
                 // commit('setMessage', ('hotel with name: ') + response.data.hotelName + (' edit')) //установка текста сообщения
                 // commit('setIsVisible', true) // меняем видимость сообщения
                 // commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс

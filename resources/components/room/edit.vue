@@ -29,26 +29,14 @@
                 </div>
             </div>
             <div>
-                <div>
-                    <select v-model="select" @change="hotelChange">
-                        <option v-for="hotel in hotels" :key="hotel.id" :value="hotel.id">
-                            {{hotel.name}}
-                        </option>
-                    </select>
-                </div>
                 <label for="options">select hotel:</label>
                 <select v-model="localSelectedHotel" @change="onHotelChange">
-                    <option
-                        v-for="hotel in hotels"
-                        :key="hotel.id"
-                        :value="hotel.name"
-                        :selected="hotel.name === room.hotel_name"
-                    >
+                    <option v-for="hotel in hotels" :key="hotel.id" :value="hotel.id">
                         {{ hotel.name }}
                     </option>
                 </select>
                 <p v-if="room.hotel_name" > <br> hotel default: <b>{{ room.hotel_name }}</b></p>
-                <p v-if="localSelectedHotel" > <br> selected hotel: <b>{{ localSelectedHotel }}</b></p>
+                <p v-if="localSelectedHotelName" > <br> selected hotel: <b>{{ localSelectedHotelName }}</b></p>
                 <div v-if="errors?.hotel_id?.length">
                     <p class="w-25 alert alert-danger">{{ errors.hotel_id }}</p>
                 </div>
@@ -87,6 +75,7 @@ export default {
     data() {
         return {
             localSelectedHotel: null,
+            localSelectedHotelName: null,
             fileExtension: null,
             selectedFile: null,
             select: null,
@@ -106,9 +95,14 @@ export default {
         }),
 
         selectedHotelId() {
-            const selectedHotel = this.hotels.find(hotel => hotel.name === this.localSelectedHotel);
-            return selectedHotel ? selectedHotel.id : this.$store.getters.selectedHotel;
+            const selectedHotel = this.hotels.find(hotel => hotel.id === this.localSelectedHotel);
+            return selectedHotel ? selectedHotel.id : null
         },
+
+        selectHotelName() {
+            const selectedHotel = this.hotels.find(hotel => hotel.id === this.localSelectedHotel);
+            return selectedHotel ? selectedHotel.name : null;
+        }
     },
 
     async mounted() {
@@ -116,7 +110,7 @@ export default {
         await this.$store.dispatch('room/getListHotels');
 
         const hotelId = this.$store.getters['room/room'].hotel_id;
-        console.log(hotelId);
+        this.localSelectedHotel = hotelId
     },
 
     methods: {
@@ -126,7 +120,9 @@ export default {
 
         onHotelChange() {
             this.$store.commit('room/setSelectedHotel', this.localSelectedHotel);
-            // console.log('ID выбранного отеля:', this.selectedHotelId);
+            console.log('ID выбранного отеля:', this.selectedHotelId);
+            console.log('NAME выбранного отеля:', this.selectHotelName);
+            this.localSelectedHotelName = this.selectHotelName
         },
 
         onFileChange(event) {
@@ -137,12 +133,11 @@ export default {
 
         editRoom(Room) {
             const file = this.selectedFile ;
-            const hotel_id = this.selectedHotelId
             const data = {
                 name: this.room.name,
                 description: this.room.description,
                 price: this.room.price,
-                hotel_id: this.getselectedHotel(),
+                hotel_id: this.selectedHotelId,
                 id: this.$route.params.id
             };
             this.$store.dispatch('room/editRoom', { file, data });
