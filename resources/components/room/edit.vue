@@ -120,8 +120,8 @@ export default {
 
         onHotelChange() {
             this.$store.commit('room/setSelectedHotel', this.localSelectedHotel);
-            console.log('ID выбранного отеля:', this.selectedHotelId);
-            console.log('NAME выбранного отеля:', this.selectHotelName);
+            // console.log('ID выбранного отеля:', this.selectedHotelId);
+            // console.log('NAME выбранного отеля:', this.selectHotelName);
             this.localSelectedHotelName = this.selectHotelName
         },
 
@@ -144,10 +144,5 @@ export default {
         },
     },
 
-    created() {
-        // Устанавливаем значение по умолчанию из Vuex
-        this.select = this.room.hotel_id;
-        // console.log(this.select);
-    },
 };
 </script>

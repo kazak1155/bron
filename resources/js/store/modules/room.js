@@ -56,9 +56,6 @@ export default  {
         errors: state => {
             return state.errors
         },
-        getRoomHotelId: state => {
-            return state.room.hotel_id
-        }
     },
 
     mutations: {
@@ -161,7 +158,8 @@ export default  {
                         commit('setVisibleMessage', false)// Скрываем элемент через 5 секунд
                         }, 5000);
                 console.log(response.data.hotel_id);
-                router.go();
+                await router.go();
+                // console.log(response.data);
             } catch (error) {
                 // console.log(error.response)
             }
@@ -220,47 +218,54 @@ export default  {
         async editRoom({commit}, {file, data}) {
             console.log(data);
             const id = data.id
-            // console.log('id room for edit: ', data.id);
             const formData = new FormData();
             try {
-                // if (!data.name) {
-                //     // commit('setErrorName', 'поле не должно быть пустым JS')
-                //     return;
-                // } else {
-                //     // commit('setErrorName', null)
-                // }
-                // if (!data.address) {
-                //     // commit('setErrorAddress', 'поле не должно быть пустым JS')
-                //     return;
-                // } else {
-                //     // commit('setErrorAddress', null)
-                // }
-                // if (file) {
-                //     formData.append('file', file);
-                // }
+                if (!data.name) {
+                    commit('setErrorName', 'поле не должно быть пустым JS')
+                    return;
+                } else {
+                    commit('setErrorName', null)
+                }
+                if (!data.price) {
+                    commit('setErrorPrice', 'поле не должно быть пустым JS')
+                    return;
+                } else {
+                    commit('setErrorPrice', null)
+                }
+                if (!data.hotel_id) {
+                    commit('setErrorHotel_id', 'поле не должно быть пустым JS')
+                    return;
+                } else {
+                    commit('setErrorHotel_id', null)
+                }
+                if (file) {
+                    formData.append('file', file);
+                }
 
+                formData.append('id', data.id);
                 formData.append('name', data.name);
                 formData.append('description', data.description);
                 formData.append('price', data.price);
                 formData.append('hotel_id', data.hotel_id);
                 formData.append("_method", 'PATCH')
 
-                // const response = await axios.post(`/api/room/${id}`, formData,
-                //     {
-                //             headers: {
-                //                 'Content-Type': 'multipart/form-data'
-                //             }
-                //     });
-                // console.log(response.data);
-                // commit('setMessage', ('hotel with name: ') + response.data.hotelName + (' edit')) //установка текста сообщения
-                // commit('setIsVisible', true) // меняем видимость сообщения
-                // commit('serClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
-                // setTimeout(() => {
-                //     commit('setIsVisible', false)// Скрываем элемент через 3 секунды
-                // }, 3000);
-                // commit('setImageUrl', null)
-                // commit('setResetHotel')
-                // await router.push({name: 'show.hotel', id}) // Используем метод push и ждем его завершения
+                const response = await axios.post(`/api/room/${id}`, formData,
+                    // {
+                    //     headers: {
+                    //         'Content-Type': 'multipart/form-data'
+                    //     }
+                    // }
+                    );
+                console.log(response.data);
+                commit('setMessage', ('room with name: ') + response.data.name + (' edit')) //установка текста сообщения
+                commit('setVisibleMessage', true) // мен яем видимость сообщения
+                commit('setClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
+                setTimeout(() => {
+                    commit('setIsVisible', false)// Скрываем элемент через 3 секунды
+                }, 3000);
+                commit('setImageUrl', null)
+                commit('setResetRoom')
+                await router.push({name: 'show.room', id}) // Используем метод push и ждем его завершения
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                 //     commit('setErrors', error.response.data.errors)

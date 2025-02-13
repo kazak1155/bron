@@ -3,6 +3,7 @@
 namespace App\Services\Room;
 
 use App\Models\Room;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceRoom
@@ -17,35 +18,36 @@ class ServiceRoom
             $path = $data['file']->storeAs($path, $imageName, 'public');
             $lastCreateRoom->image_url = $path;
             $lastCreateRoom->save();
-            return 'file exists';
+            return 'new room with image created';
         } else {
             return 'file not exists';
         }
+        return 'new room created';
     }
 
     public function update($data, $id)
     {
-//        $hotel = Hotel::find($id);
-//        $hotel->name = $data['name'];
-//        $hotel->description = $data['description'];
-//        $hotel->address = $data['address'];
-//        $hotel->save();
-//
-//        if(array_key_exists('file', $data)) {
-//            $hotel = Hotel::find($id);
-//            $originalExtension  = $data['file']->getClientOriginalExtension();
-//            $path = 'data' . DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR .'hotel_' . $hotel->id . DIRECTORY_SEPARATOR . 'image' . DIRECTORY_SEPARATOR;
-//            $imageName = 'hotel_' . $hotel->id . '_image.' . $originalExtension;
-//            $path = $data['file']->storeAs($path, $imageName, 'public');
-//            $hotel->img_url = $path;
-//            $hotel->save();
-//
-//            return 'file exists';
-//        } else {
-//            return 'file not exists';
-//        }
-//
-//        return $data;
+        $room = Room::find($id);
+        $room->name = $data['name'];
+        $room->description = $data['description'];
+        $room->price = $data['price'];
+        $room->hotel_id = $data['hotel_id'];
+        $room->save();
+
+        if(array_key_exists('file', $data)) {
+            $room = Room::find($id);
+            $originalExtension  = $data['file']->getClientOriginalExtension();
+            $path = 'data' . DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR .'hotel_' . $room->hotel_id . DIRECTORY_SEPARATOR . 'room' . DIRECTORY_SEPARATOR . 'room_' . $room->id . DIRECTORY_SEPARATOR . 'image';
+            $imageName = 'room_' . $room->id . '_image.' . $originalExtension;;
+            $path = $data['file']->storeAs($path, $imageName, 'public');
+            $room->image_url = $path;
+            $room->save();
+
+        } else {
+            return 'file not exists';
+        }
+
+        return $data;
     }
 
     public function delete($room)
@@ -55,6 +57,12 @@ class ServiceRoom
              Storage::disk('public')->delete($filePath);
         }
         $room->delete();
+
+        $dirPath = 'data'. DIRECTORY_SEPARATOR . 'hotels'. DIRECTORY_SEPARATOR . 'hotel_' . $room->hotel_id . DIRECTORY_SEPARATOR . 'room' . DIRECTORY_SEPARATOR . 'room_' . $room->id;// Укажите путь относительно диска
+        if (Storage::disk('public')->exists($dirPath)) {
+            Storage::disk('public')->deleteDirectory($dirPath);
+        }
+
 
         return [
             'name' => $room->name,

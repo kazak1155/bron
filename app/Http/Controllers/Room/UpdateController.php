@@ -10,9 +10,10 @@ class UpdateController extends BaseRoomController
 {
     public function update(UpdateRequest $request)
     {
-
         $data = $request->validated();
+        $id = $request->id;
+        $data = $this->service->update($data, $id);
 
-        return $request ;
+        return $data;
     }
 }
