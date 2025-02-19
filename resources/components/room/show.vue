@@ -40,13 +40,12 @@ export default {
 
     computed: {
         ...mapGetters({
-            // rooms: 'room/rooms'б
             room: 'room/room',
         }),
         ...mapGetters({
-            message: 'hotel/message',
-            visibleMessage: 'hotel/isVisible',
-            classMessage: 'hotel/classMessage',
+            message: 'room/message',
+            visibleMessage: 'room/visibleMessage',
+            classMessage: 'room/classMessage',
         }),
     },
 

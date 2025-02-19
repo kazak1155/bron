@@ -257,11 +257,11 @@ export default  {
                     // }
                     );
                 console.log(response.data);
-                commit('setMessage', ('room with name: ') + response.data.name + (' edit')) //установка текста сообщения
-                commit('setVisibleMessage', true) // мен яем видимость сообщения
+                commit('setMessage', ('room with name: ') + data.name + (' edit')) //установка текста сообщения
+                commit('setVisibleMessage', true) // меняем видимость сообщения
                 commit('setClassMessage', 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3') //придаем сообщению определенный класс
                 setTimeout(() => {
-                    commit('setIsVisible', false)// Скрываем элемент через 3 секунды
+                    commit('setVisibleMessage', false)// Скрываем элемент через 3 секунды
                 }, 3000);
                 commit('setImageUrl', null)
                 commit('setResetRoom')

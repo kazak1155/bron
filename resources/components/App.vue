@@ -17,6 +17,16 @@
                     <li class="nav-item">
                         <router-link class="nav-link active" :to="{ name: 'store.room' }">store room</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link active" :to="{ name: 'login.auth' }">login</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link active" :to="{ name: 'registration.auth' }">registration</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link active" :to="{ name: 'show.user' }">personal page</router-link>
+                    </li>
+
                 </ul>
             </div>
         </div>

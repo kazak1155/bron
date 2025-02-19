@@ -52,6 +52,21 @@ const routes = [
         name: "store.room",
         component: () => import('../../components/room/store.vue'),
     },
+    {
+        path: "/login",
+        name: "login.auth",
+        component: () => import('../../components/auth/login.vue'),
+    },
+    {
+        path: "/registration",
+        name: "registration.auth",
+        component: () => import('../../components/auth/registration.vue'),
+    },
+    {
+        path: "/personal",
+        name: "show.user",
+        component: () => import('../../components/user/personal.vue'),
+    },
 ];
 
 const router = createRouter({
