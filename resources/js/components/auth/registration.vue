@@ -19,9 +19,14 @@
                 </div>
                 <div class="form-group mt-3">
                     <label for="exampleInputPassword1">confirm password</label>
-                    <input v-model="user.confirm_password" type="password" class="form-control" id="confirm_password" placeholder="enter confirm_password">
+                    <input v-model="user.password_confirmation" type="password" class="form-control" id="confirm_password" placeholder="enter confirm_password">
                 </div>
-                <button @click.prevent="$store.dispatch('user/registration')" type="submit" class="mt-3 btn btn-primary">Submit</button>
+                <button @click.prevent="$store.dispatch('user/registration', {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    password_confirmation: user.password_confirmation
+                })" type="submit" class="mt-3 btn btn-primary">Submit</button>
             </form>
         </div>
 </div>

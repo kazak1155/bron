@@ -9,7 +9,7 @@ export default  {
             name: null,
             email: null,
             password: null,
-            confirm_password: null,
+            password_confirmation: null,
         }
     },
 
@@ -20,16 +20,24 @@ export default  {
     },
 
     mutations: {
+        SetUser(state, data) {
+            state.user = data;
+        }
 
     },
 
     actions: {
-        async login() {
-            console.log('login');
+        async login({ commit }, data) {
+            console.log('Данные, полученные из компонента:', data);
+            // commit('SetUser', data);
+
         },
 
-        async registration() {
-            console.log('registration');
+        async registration({ commit }, data) {
+            // console.log('Данные, полученные из компонента:', data);
+            // console.log('registration');
+            const response = await axios.post('api/users', data);
+            console.log(response.data)
         },
     },
 }

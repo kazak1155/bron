@@ -10,12 +10,14 @@ use App\Http\Controllers\Room\ShowController as RoomShowController;
 use App\Http\Controllers\Room\StoreController as RoomStoreController;
 use App\Http\Controllers\Room\DeleteController as RoomDeleteController;
 use App\Http\Controllers\Room\UpdateController as RoomUpdateController;
+use App\Http\Controllers\User\StoreController as UserStoreController    ;
 
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::post('/users', [UserStoreController::class, 'storeUser'])->name('user.store');
 
 Route::get('hotels', [ShowController::class, 'index'])->name('index.hotel');
 Route::get('hotel/{hotel}', [ShowController::class, 'show'])->name('show.hotel');

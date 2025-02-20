@@ -28,7 +28,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import room from "../../js/store/modules/room.js";
+import room from "../../store/modules/room.js";
 
 export default {
     name: "showOneRoom",

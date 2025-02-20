@@ -5,67 +5,67 @@ const routes = [
     {
         path: "/hotel/:id",
         name: "show.hotel",
-        component: () => import('../../components/hotel/show.vue'),
+        component: () => import('../components/hotel/show.vue'),
     },
 
     {
         path: "/storeHotel",
         name: "store.hotel",
-        component: () => import('../../components/hotel/store.vue'),
+        component: () => import('../components/hotel/store.vue'),
     },
 
     {
         path: "/hotel/:id/edit",
         name: "edit.hotel",
-        component: () => import('../../components/hotel/edit.vue'),
+        component: () => import('../components/hotel/edit.vue'),
     },
 
     {
         path: "/indexHotel",
         name: "index.hotel",
-        component: () => import('../../components/hotel/index.vue'),
+        component: () => import('../components/hotel/index.vue'),
     },
 
     {
         path: "/",
         name: "main",
-        component: () => import('../../components/pages/main.vue'),
+        component: () => import('../components/pages/main.vue'),
     },
 
     {
         path: "/:pathMatch(.*)*",
         name: "pageNotFound",
-        component: () => import('../../components/pages/notFoundPage.vue'),
+        component: () => import('../components/pages/notFoundPage.vue'),
     },
     {
         path: "/room/:id",
         name: "show.room",
-        component: () => import('../../components/room/show.vue'),
+        component: () => import('../components/room/show.vue'),
     },
     {
         path: "/room/:id/edit",
         name: "edit.room",
-        component: () => import('../../components/room/edit.vue'),
+        component: () => import('../components/room/edit.vue'),
     },
     {
         path: "/roomStore",
         name: "store.room",
-        component: () => import('../../components/room/store.vue'),
+        component: () => import('../components/room/store.vue'),
     },
     {
         path: "/login",
         name: "login.auth",
-        component: () => import('../../components/auth/login.vue'),
+        component: () => import('../components/auth/login.vue'),
     },
     {
         path: "/registration",
         name: "registration.auth",
-        component: () => import('../../components/auth/registration.vue'),
+        component: () => import('../components/auth/registration.vue'),
     },
     {
         path: "/personal",
         name: "show.user",
-        component: () => import('../../components/user/personal.vue'),
+        component: () => import('../components/user/personal.vue'),
     },
 ];
 
